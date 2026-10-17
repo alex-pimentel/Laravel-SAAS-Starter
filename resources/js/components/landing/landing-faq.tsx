@@ -10,41 +10,41 @@ export function LandingFaq() {
         {
             question: t(
                 'landing.faq.items.what_is.question',
-                'What is Laravel SAAS Starter?',
+                'What is AgentResolve?',
             ),
             answer: t(
                 'landing.faq.items.what_is.answer',
-                'Laravel SAAS Starter is a production-ready Laravel SaaS starter kit that includes authentication, multi-tenant workspaces, team management, Stripe billing, and more. It helps you launch your SaaS product 10x faster by providing all the essential features out of the box. Built by XCO Agency.',
+                'AgentResolve creates professional videos with AI in minutes. Describe your video in a sentence and the agent picks a template, writes the copy and builds an editable design. You refine it in the visual editor and render a deterministic MP4 in 1080p or 4K.',
             ),
         },
         {
             question: t(
                 'landing.faq.items.tech_stack.question',
-                'What tech stack does Laravel SAAS Starter use?',
+                'What video quality can I export?',
             ),
             answer: t(
                 'landing.faq.items.tech_stack.answer',
-                'Laravel SAAS Starter is built with Laravel 12, Inertia.js v2, React 19, and Tailwind CSS v4. It uses Laravel Fortify for authentication, Laravel Cashier for Stripe billing, and shadcn/ui-inspired components for the UI.',
+                'AgentResolve renders deterministic MP4 files: 720p on the Free plan, 1080p on Pro and up to 4K on Business.',
             ),
         },
         {
             question: t(
                 'landing.faq.items.multiple_projects.question',
-                'Can I use Laravel SAAS Starter for multiple projects?',
+                'Can I create multiple videos and projects?',
             ),
             answer: t(
                 'landing.faq.items.multiple_projects.answer',
-                'Yes! Laravel SAAS Starter is open source and free to use for unlimited personal and commercial projects. There are no per-project fees or royalties.',
+                'Yes! The Free plan includes 3 videos per month, Pro includes 30 and Business includes 150, with workspaces for your team and API access on Business.',
             ),
         },
         {
             question: t(
                 'landing.faq.items.production_ready.question',
-                'Is Laravel SAAS Starter suitable for production?',
+                'Are the videos ready to publish?',
             ),
             answer: t(
                 'landing.faq.items.production_ready.answer',
-                'Absolutely. Laravel SAAS Starter is built with production in mind, following Laravel best practices, security guidelines, and performance optimizations. Many successful SaaS products are already running on Laravel SAAS Starter.',
+                'Absolutely. Paid plans export without watermark, in 1080p or 4K, and the deterministic render guarantees the same polished MP4 every time.',
             ),
         },
         {
@@ -54,7 +54,7 @@ export function LandingFaq() {
             ),
             answer: t(
                 'landing.faq.items.customization.answer',
-                'Laravel SAAS Starter uses Tailwind CSS v4 with a well-organized theme system. You can easily customize colors, fonts, and spacing through the CSS variables. All components are built with shadcn/ui patterns, making them easy to modify.',
+                'Everything is editable. Use the visual editor to adjust scenes on the timeline and animate each object individually until the video looks exactly how you want.',
             ),
         },
         {
@@ -64,7 +64,7 @@ export function LandingFaq() {
             ),
             answer: t(
                 'landing.faq.items.support.answer',
-                'Yes! We provide community support through GitHub Discussions and Issues. You can ask questions, report bugs, or request features. The community is very active and helpful.',
+                'Yes! We provide support in Portuguese, English and Spanish to help you make the most of AgentResolve.',
             ),
         },
         {
@@ -74,7 +74,7 @@ export function LandingFaq() {
             ),
             answer: t(
                 'landing.faq.items.getting_started.answer',
-                "Getting started is easy! Clone the repository, follow the installation instructions in the README, and you'll have a fully functional SaaS application running in minutes. No complex setup required.",
+                "Sign up for free, describe the video you want in a sentence, and the AI agent delivers an editable draft in minutes. Refine it in the editor and render when you're ready.",
             ),
         },
     ];
@@ -93,7 +93,7 @@ export function LandingFaq() {
                     <p className="mt-4 text-lg text-muted-foreground">
                         {t(
                             'landing.faq.description',
-                            "Everything you need to know about Laravel SAAS Starter. Can't find the answer you're looking for? Contact our support team.",
+                            "Everything you need to know about AgentResolve. Can't find the answer you're looking for? Contact our support team.",
                         )}
                     </p>
                 </div>

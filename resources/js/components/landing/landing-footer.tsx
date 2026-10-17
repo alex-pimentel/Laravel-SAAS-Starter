@@ -1,18 +1,18 @@
 import { useTranslations } from '@/hooks/use-translations';
 import { Link } from '@inertiajs/react';
-import { Github, Sparkles, Twitter } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 export function LandingFooter() {
     const { t } = useTranslations();
 
     const footerLinks = {
         product: {
-            title: t('landing.footer.cols.product.title', 'Product'),
+            title: t('landing.footer.cols.product.title', 'Produto'),
             links: [
                 {
                     label: t(
                         'landing.footer.cols.product.features',
-                        'Features',
+                        'Recursos',
                     ),
                     href: '#features',
                 },
@@ -21,54 +21,25 @@ export function LandingFooter() {
                     href: '#faq',
                 },
                 {
-                    label: t(
-                        'landing.footer.cols.product.contributing',
-                        'Contributing',
-                    ),
-                    href: 'https://github.com/xco-agency/laravel-saas-starter/blob/main/CONTRIBUTING.md',
+                    label: t('landing.footer.pricing', 'Preços'),
+                    href: '#pricing',
                 },
             ],
         },
-        company: {
-            title: t('landing.footer.cols.company.title', 'Company'),
+        account: {
+            title: t('navigation.platform', 'Plataforma'),
             links: [
                 {
-                    label: t(
-                        'landing.footer.cols.company.about',
-                        'About XCO Agency',
-                    ),
-                    href: 'https://xco.agency',
+                    label: t('navigation.dashboard', 'Painel'),
+                    href: '/dashboard',
                 },
                 {
-                    label: t('landing.footer.cols.company.contact', 'Contact'),
-                    href: 'mailto:support@xco.agency',
-                },
-            ],
-        },
-        resources: {
-            title: t('landing.footer.cols.resources.title', 'Resources'),
-            links: [
-                {
-                    label: t(
-                        'landing.footer.cols.resources.docs',
-                        'Documentation',
-                    ),
-                    href: 'https://github.com/xco-agency/laravel-saas-starter#readme',
+                    label: t('auth.log_in', 'Entrar'),
+                    href: '/login',
                 },
                 {
-                    label: t('landing.footer.cols.resources.github', 'GitHub'),
-                    href: 'https://github.com/xco-agency/laravel-saas-starter',
-                },
-                {
-                    label: t('landing.footer.cols.resources.issues', 'Issues'),
-                    href: 'https://github.com/xco-agency/laravel-saas-starter/issues',
-                },
-                {
-                    label: t(
-                        'landing.footer.cols.resources.discussions',
-                        'Discussions',
-                    ),
-                    href: 'https://github.com/xco-agency/laravel-saas-starter/discussions',
+                    label: t('auth.create_account', 'Criar conta'),
+                    href: '/register',
                 },
             ],
         },
@@ -76,32 +47,15 @@ export function LandingFooter() {
             title: t('landing.footer.cols.legal.title', 'Legal'),
             links: [
                 {
-                    label: t('landing.footer.cols.legal.license', 'License'),
-                    href: 'https://github.com/xco-agency/laravel-saas-starter/blob/main/LICENSE',
-                },
-                {
                     label: t(
                         'landing.footer.cols.legal.privacy',
-                        'Privacy Policy',
+                        'Política de Privacidade',
                     ),
-                    href: '#',
+                    href: '/privacy',
                 },
             ],
         },
     };
-
-    const socialLinks = [
-        {
-            icon: Github,
-            href: 'https://github.com/xco-agency/laravel-saas-starter',
-            label: t('landing.footer.social.github', 'GitHub'),
-        },
-        {
-            icon: Twitter,
-            href: '#',
-            label: t('landing.footer.social.twitter', 'Twitter'),
-        },
-    ];
     return (
         <footer className="border-t border-white/10 bg-foreground text-white">
             <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
@@ -114,31 +68,15 @@ export function LandingFooter() {
                                 <Sparkles className="h-4 w-4 text-foreground" />
                             </div>
                             <span className="text-base font-bold tracking-tight text-white">
-                                {t(
-                                    'landing.footer.brand',
-                                    'Laravel SAAS Starter',
-                                )}
+                                {t('landing.footer.brand', 'AgentResolve')}
                             </span>
                         </Link>
                         <p className="mt-4 max-w-xs text-sm text-white/50">
                             {t(
                                 'landing.footer.description',
-                                'The ultimate Laravel SaaS starter kit by XCO Agency. Build and launch your product 10x faster.',
+                                'AgentResolve creates professional videos with AI in minutes: describe, refine and render.',
                             )}
                         </p>
-                        {/* Social Links */}
-                        <div className="mt-6 flex gap-4">
-                            {socialLinks.map((social) => (
-                                <a
-                                    key={social.label}
-                                    href={social.href}
-                                    className="text-white/40 transition-colors hover:text-white"
-                                    aria-label={social.label}
-                                >
-                                    <social.icon className="h-5 w-5" />
-                                </a>
-                            ))}
-                        </div>
                     </div>
 
                     {/* Links */}
@@ -177,7 +115,7 @@ export function LandingFooter() {
                         © {new Date().getFullYear()}{' '}
                         {t(
                             'landing.footer.copyright',
-                            'XCO Agency. All rights reserved.',
+                            'AgentResolve. All rights reserved.',
                         )}
                     </p>
                 </div>

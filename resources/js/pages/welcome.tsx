@@ -23,35 +23,35 @@ export default function Welcome({
             <Head
                 title={t(
                     'landing.meta.title',
-                    'Laravel SAAS Starter - Launch Your SaaS 10x Faster',
+                    'AgentResolve - Professional videos with AI in minutes',
                 )}
             >
                 <meta
                     name="description"
                     content={t(
                         'landing.meta.description',
-                        'Laravel SAAS Starter is a production-ready Laravel SaaS starter kit with authentication, billing, teams, and everything you need to launch faster. Built by XCO Agency.',
+                        'AgentResolve creates professional videos with AI in minutes. Describe your video in a sentence, refine it in the visual editor and render deterministic MP4 in 1080p or 4K.',
                     )}
                 />
                 <meta
                     name="keywords"
                     content={t(
                         'landing.meta.keywords',
-                        'laravel, saas, starter kit, boilerplate, authentication, stripe, billing, teams',
+                        'ai video, video generator, video editor, templates, ai agent, mp4, 1080p, 4k',
                     )}
                 />
                 <meta
                     property="og:title"
                     content={t(
                         'landing.meta.og_title',
-                        'Laravel SAAS Starter - Launch Your SaaS 10x Faster',
+                        'AgentResolve - Professional videos with AI in minutes',
                     )}
                 />
                 <meta
                     property="og:description"
                     content={t(
                         'landing.meta.og_description',
-                        'Production-ready Laravel SaaS starter kit. 100% free and open source. Launch your SaaS 10x faster with authentication, billing, teams, and more.',
+                        'Create professional videos with AI in minutes. From a one-sentence prompt to a deterministic MP4 in 1080p or 4K.',
                     )}
                 />
                 <meta property="og:type" content="website" />
@@ -60,14 +60,14 @@ export default function Welcome({
                     name="twitter:title"
                     content={t(
                         'landing.meta.twitter_title',
-                        'Laravel SAAS Starter - Launch Your SaaS 10x Faster',
+                        'AgentResolve - Professional videos with AI in minutes',
                     )}
                 />
                 <meta
                     name="twitter:description"
                     content={t(
                         'landing.meta.twitter_description',
-                        'Production-ready Laravel SaaS starter kit by XCO Agency.',
+                        'Professional AI videos in minutes: prompt, edit and render in 1080p or 4K.',
                     )}
                 />
                 <link rel="preconnect" href="https://fonts.bunny.net" />

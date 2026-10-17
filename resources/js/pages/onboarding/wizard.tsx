@@ -252,7 +252,12 @@ export default function OnboardingWizard() {
 
     return (
         <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4 md:p-8">
-            <Head title={t('onboarding.wizard.page_title', 'Welcome to XCO')} />
+            <Head
+                title={t(
+                    'onboarding.wizard.page_title',
+                    'Welcome to AgentResolve',
+                )}
+            />
 
             <div className="mb-8 flex items-center gap-2">
                 <div className="h-10 text-primary">
@@ -740,10 +745,7 @@ export default function OnboardingWizard() {
                 </div>
             </div>
             <div className="mt-8 text-center text-sm text-muted-foreground">
-                {t(
-                    'onboarding.wizard.secured_by',
-                    'Secured by XCO SAAS Starter',
-                )}
+                {t('onboarding.wizard.secured_by', 'Secured by AgentResolve')}
             </div>
         </div>
     );

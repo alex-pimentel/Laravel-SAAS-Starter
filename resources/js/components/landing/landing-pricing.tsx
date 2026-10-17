@@ -21,21 +21,21 @@ export function LandingPricing() {
                 {/* Section Header */}
                 <div className="mx-auto max-w-3xl text-center">
                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-                        {t('landing.pricing.title.part1', 'Completely')}{' '}
+                        {t('landing.pricing.title.part1', 'Choose')}{' '}
                         <span className="text-primary">
-                            {t('landing.pricing.title.part2', 'Free')}
+                            {t('landing.pricing.title.part2', 'your plan')}
                         </span>{' '}
-                        & {t('landing.pricing.title.part3', 'Open Source')}
+                        & {t('landing.pricing.title.part3', 'start creating')}
                     </h2>
                     <p className="mt-4 text-lg text-muted-foreground">
                         {t(
                             'landing.pricing.description',
-                            'No credit card required. No hidden fees. Use it for unlimited personal and commercial projects.',
+                            'Start free and scale as you grow. Upgrade or downgrade anytime.',
                         )}
                     </p>
                 </div>
 
-                {/* Open Source Benefits */}
+                {/* Plans */}
                 <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     <Card className="relative border-border">
                         <CardHeader>
@@ -43,15 +43,12 @@ export function LandingPricing() {
                                 <Sparkles className="h-5 w-5 text-primary" />
                             </div>
                             <CardTitle className="text-xl">
-                                {t(
-                                    'landing.pricing.items.free.title',
-                                    '100% Free',
-                                )}
+                                {t('landing.pricing.items.free.title', 'Free')}
                             </CardTitle>
                             <CardDescription>
                                 {t(
                                     'landing.pricing.items.free.description',
-                                    'No subscriptions, no per-project fees, no royalties. Use it however you want.',
+                                    '3 videos per month in 720p with watermark.',
                                 )}
                             </CardDescription>
                         </CardHeader>
@@ -65,13 +62,13 @@ export function LandingPricing() {
                             <CardTitle className="text-xl">
                                 {t(
                                     'landing.pricing.items.license.title',
-                                    'MIT License',
+                                    'Pro',
                                 )}
                             </CardTitle>
                             <CardDescription>
                                 {t(
                                     'landing.pricing.items.license.description',
-                                    'Completely open source with permissive licensing. Commercial use is welcome.',
+                                    'R$ 97/month: 30 videos per month, 1080p without watermark and unlimited agent.',
                                 )}
                             </CardDescription>
                         </CardHeader>
@@ -85,13 +82,13 @@ export function LandingPricing() {
                             <CardTitle className="text-xl">
                                 {t(
                                     'landing.pricing.items.production.title',
-                                    'Production Ready',
+                                    'Business',
                                 )}
                             </CardTitle>
                             <CardDescription>
                                 {t(
                                     'landing.pricing.items.production.description',
-                                    'Battle-tested code following Laravel best practices. Ready for production use.',
+                                    'R$ 297/month: 150 videos per month, 1080p/4K, workspaces/teams and API.',
                                 )}
                             </CardDescription>
                         </CardHeader>
@@ -104,22 +101,11 @@ export function LandingPricing() {
                         <Link href={auth.user ? '/dashboard' : register()}>
                             {t(
                                 'landing.pricing.cta.get_started',
-                                'Get Started Free',
+                                'Start Creating Free',
                             )}
                             <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>
                     </Button>
-                    <p className="mt-4 text-sm text-muted-foreground">
-                        {t('landing.pricing.cta.or', 'Or')}{' '}
-                        <a
-                            href="https://github.com/xco-agency/laravel-saas-starter"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-medium text-primary hover:underline"
-                        >
-                            {t('landing.pricing.cta.github', 'view on GitHub')}
-                        </a>
-                    </p>
                 </div>
             </div>
         </section>

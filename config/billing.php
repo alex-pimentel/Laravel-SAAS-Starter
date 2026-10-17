@@ -17,8 +17,8 @@ return [
 
     'plans' => [
         'free' => [
-            'name' => 'Free',
-            'description' => 'Perfect for getting started',
+            'name' => 'Grátis',
+            'description' => 'Para experimentar o editor e o agente',
             'price' => [
                 'monthly' => 0,
                 'yearly' => 0,
@@ -29,51 +29,52 @@ return [
             ],
             'limits' => [
                 'workspaces' => 1,
-                'team_members' => 2,
-                'api_keys' => 2,
-                'webhooks' => 1,
+                'team_members' => 1,
+                'api_keys' => 1,
+                'webhooks' => 0,
             ],
             'features' => [
-                '1 Workspace',
-                '2 Team Members',
-                'Basic Features',
-                'Community Support',
+                '3 vídeos por mês',
+                '720p com marca d\'água',
+                'Agente prompt→vídeo (10 gerações/mês)',
+                'Biblioteca completa de templates',
+                'Suporte da comunidade',
             ],
         ],
 
         'pro' => [
             'name' => 'Pro',
-            'description' => 'For growing teams',
+            'description' => 'Para criadores e pequenos negócios',
             'price' => [
-                'monthly' => 19,
-                'yearly' => 190, // ~2 months free
+                'monthly' => 97,
+                'yearly' => 970, // ~2 months free
             ],
             'stripe_price_id' => [
                 'monthly' => env('STRIPE_PRO_MONTHLY_PRICE_ID', 'price_pro_monthly'),
                 'yearly' => env('STRIPE_PRO_YEARLY_PRICE_ID', 'price_pro_yearly'),
             ],
             'limits' => [
-                'workspaces' => 5,
-                'team_members' => 10,
-                'api_keys' => 10,
-                'webhooks' => 5,
+                'workspaces' => 3,
+                'team_members' => 5,
+                'api_keys' => 5,
+                'webhooks' => 3,
             ],
             'features' => [
-                '5 Workspaces',
-                '10 Team Members',
-                'All Features',
-                'Priority Support',
-                'Advanced Analytics',
+                '30 vídeos por mês',
+                '1080p sem marca d\'água',
+                'Agente ilimitado',
+                'Render prioritário',
+                'Suporte por e-mail',
             ],
             'popular' => true,
         ],
 
         'business' => [
             'name' => 'Business',
-            'description' => 'For larger organizations',
+            'description' => 'Para agências e equipes',
             'price' => [
-                'monthly' => 49,
-                'yearly' => 490, // ~2 months free
+                'monthly' => 297,
+                'yearly' => 2970, // ~2 months free
             ],
             'stripe_price_id' => [
                 'monthly' => env('STRIPE_BUSINESS_MONTHLY_PRICE_ID', 'price_business_monthly'),
@@ -86,13 +87,11 @@ return [
                 'webhooks' => -1, // Unlimited
             ],
             'features' => [
-                'Unlimited Workspaces',
-                'Unlimited Team Members',
-                'All Features',
-                'Dedicated Support',
-                'Advanced Analytics',
-                'Custom Integrations',
-                'SSO (Coming Soon)',
+                '150 vídeos por mês',
+                '1080p/4K sem marca d\'água',
+                'Workspaces e equipes',
+                'API e marca própria',
+                'Suporte prioritário',
             ],
         ],
     ],

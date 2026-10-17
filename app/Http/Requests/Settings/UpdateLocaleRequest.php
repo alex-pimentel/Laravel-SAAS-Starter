@@ -23,7 +23,7 @@ class UpdateLocaleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'locale' => ['required', 'string', 'in:en,pt,fr,es,ar'],
+            'locale' => ['required', 'string', 'in:pt,en,es'],
         ];
     }
 }

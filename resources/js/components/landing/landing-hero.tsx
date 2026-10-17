@@ -6,7 +6,7 @@ import { Link, usePage } from '@inertiajs/react';
 import {
     ArrowRight,
     CheckCircle,
-    Github,
+    Globe,
     Sparkles,
     Users,
     Zap,
@@ -19,28 +19,28 @@ export function LandingHero() {
     const stats = [
         {
             icon: Users,
-            value: '1,000+',
-            label: t('landing.hero.stats.developers', 'Developers'),
+            value: '1,600+',
+            label: t('landing.hero.stats.developers', 'Templates'),
         },
         {
             icon: Zap,
-            value: '50+',
-            label: t('landing.hero.stats.features', 'Features'),
+            value: '1080p/4K',
+            label: t('landing.hero.stats.features', 'Resolution'),
         },
         {
-            icon: Github,
-            value: '100%',
-            label: t('landing.hero.stats.opensource', 'Open Source'),
+            icon: Globe,
+            value: 'pt/en/es',
+            label: t('landing.hero.stats.opensource', 'Support'),
         },
     ];
 
     const features = [
-        t('landing.hero.features.auth', 'Authentication & 2FA'),
-        t('landing.hero.features.team', 'Team Management'),
-        t('landing.hero.features.billing', 'Stripe Billing'),
-        t('landing.hero.features.admin', 'Super Admin Panel'),
-        t('landing.hero.features.flags', 'Feature Flags'),
-        t('landing.hero.features.audit', 'Audit Logging'),
+        t('landing.hero.features.auth', 'Prompt to video agent'),
+        t('landing.hero.features.team', 'Teams & workspaces'),
+        t('landing.hero.features.billing', 'Free, Pro & Business plans'),
+        t('landing.hero.features.admin', '1,600+ templates'),
+        t('landing.hero.features.flags', '1080p/4K render'),
+        t('landing.hero.features.audit', 'Deterministic MP4'),
     ];
 
     return (
@@ -57,7 +57,7 @@ export function LandingHero() {
                         <span>
                             {t(
                                 'landing.hero.badge',
-                                'The Ultimate Laravel SaaS Starter',
+                                'Professional videos with AI in minutes',
                             )}
                         </span>
                     </div>
@@ -65,10 +65,16 @@ export function LandingHero() {
                     {/* Headline — clean, data-forward */}
                     <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
                         <span className="block">
-                            {t('landing.hero.title.part1', 'Build Your SaaS')}
+                            {t(
+                                'landing.hero.title.part1',
+                                'Create professional videos',
+                            )}
                         </span>
                         <span className="block text-primary">
-                            {t('landing.hero.title.part2', '10x Faster')}
+                            {t(
+                                'landing.hero.title.part2',
+                                'with AI in minutes',
+                            )}
                         </span>
                     </h1>
 
@@ -76,12 +82,12 @@ export function LandingHero() {
                     <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground sm:text-xl">
                         {t(
                             'landing.hero.description',
-                            'Production-ready Laravel SaaS starter kit with authentication, billing, teams, and everything you need. Launch your SaaS 10x faster.',
+                            'Describe your video in a sentence and the AI agent does the rest: template, copy and an editable design. Export deterministic MP4 in 1080p or 4K.',
                         )}{' '}
                         <span className="font-semibold text-foreground">
                             {t(
                                 'landing.hero.description_highlight',
-                                '100% Open Source.',
+                                'Ready in minutes.',
                             )}
                         </span>
                     </p>
@@ -90,15 +96,12 @@ export function LandingHero() {
                     <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
                         <Button size="lg" asChild className="h-11 px-7 text-sm font-semibold">
                             <Link href={auth.user ? '/dashboard' : register()}>
-                                {t('landing.hero.cta.get_started', 'Get Started Free')}
+                                {t(
+                                    'landing.hero.cta.get_started',
+                                    'Start Creating Free',
+                                )}
                                 <ArrowRight className="ml-2 h-4 w-4" />
                             </Link>
-                        </Button>
-                        <Button size="lg" variant="outline" asChild className="h-11 px-7 text-sm">
-                            <a href="https://github.com/xco-agency/laravel-saas-starter" target="_blank" rel="noopener noreferrer">
-                                <Github className="mr-2 h-4 w-4" />
-                                {t('landing.hero.cta.github', 'View on GitHub')}
-                            </a>
                         </Button>
                     </div>
 
@@ -146,18 +149,39 @@ export function LandingHero() {
                                     </div>
                                 </div>
                                 <p className="text-base font-semibold text-white">
-                                    {t('landing.hero.preview.title', 'Production-Ready Dashboard')}
+                                    {t(
+                                        'landing.hero.preview.title',
+                                        'From a sentence to a video',
+                                    )}
                                 </p>
                                 <p className="mt-2 text-sm text-white/50">
-                                    {t('landing.hero.preview.description', 'Beautiful UI with dark mode, workspaces, and team management')}
+                                    {t(
+                                        'landing.hero.preview.description',
+                                        'Visual editor, multi-scene timeline and per-object animations',
+                                    )}
                                 </p>
                                 <div className="mt-5 flex flex-wrap justify-center gap-2">
                                     {[
-                                        t('landing.hero.preview.tags.multi_tenant', 'Multi-tenant'),
-                                        t('landing.hero.preview.tags.stripe_billing', 'Stripe Billing'),
-                                        t('landing.hero.preview.tags.admin_panel', 'Super Admin'),
-                                        t('landing.hero.preview.tags.team_roles', 'Team Roles'),
-                                        t('landing.hero.preview.tags.feature_flags', 'Pennant Flags'),
+                                        t(
+                                            'landing.hero.preview.tags.multi_tenant',
+                                            'Multi-scene timeline',
+                                        ),
+                                        t(
+                                            'landing.hero.preview.tags.stripe_billing',
+                                            '1,600+ templates',
+                                        ),
+                                        t(
+                                            'landing.hero.preview.tags.admin_panel',
+                                            '1080p/4K',
+                                        ),
+                                        t(
+                                            'landing.hero.preview.tags.team_roles',
+                                            'Visual editor',
+                                        ),
+                                        t(
+                                            'landing.hero.preview.tags.feature_flags',
+                                            'Teams & workspaces',
+                                        ),
                                     ].map((tag) => (
                                         <span key={tag} className="rounded-sm border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-medium text-white/70">
                                             {tag}

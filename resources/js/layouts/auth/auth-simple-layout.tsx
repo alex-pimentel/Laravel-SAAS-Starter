@@ -56,7 +56,7 @@ export default function AuthSimpleLayout({
                         <p className="text-lg text-white/50">
                             {t(
                                 'auth.layout.hero.description',
-                                'Join thousands of developers building and shipping with Laravel SAAS Starter.',
+                                'Describe your video in a sentence and the AI agent picks the template, writes the copy and builds an editable design.',
                             )}
                         </p>
                     </div>
@@ -102,7 +102,7 @@ export default function AuthSimpleLayout({
                             "
                             {t(
                                 'auth.layout.testimonial.quote',
-                                'Laravel SAAS Starter saved us months of development time. We launched our MVP in just 2 weeks!',
+                                'AgentResolve transformed our video production. What used to take weeks now takes minutes.',
                             )}
                             "
                         </p>
@@ -133,7 +133,7 @@ export default function AuthSimpleLayout({
                     © {new Date().getFullYear()}{' '}
                     {t(
                         'auth.layout.copyright',
-                        'XCO Agency. All rights reserved.',
+                        'AgentResolve. All rights reserved.',
                     )}
                 </div>
             </div>

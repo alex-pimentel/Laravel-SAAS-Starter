@@ -1,6 +1,9 @@
+import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useTranslations } from '@/hooks/use-translations';
-import { Github, Quote, Star } from 'lucide-react';
+import { register } from '@/routes';
+import { Link } from '@inertiajs/react';
+import { Quote, Star } from 'lucide-react';
 
 export function LandingTestimonials() {
     const { t } = useTranslations();
@@ -9,7 +12,7 @@ export function LandingTestimonials() {
         {
             quote: t(
                 'landing.testimonials.items.sarah.quote',
-                'Laravel SAAS Starter saved us months of development time. The authentication, billing, and team management were all ready to go. We launched our MVP in just 2 weeks!',
+                'AgentResolve saves us hours of video production every week. We describe the video, refine it in the editor and render in 1080p in minutes.',
             ),
             author: 'Sarah Chen',
             role: t('landing.testimonials.items.sarah.role', 'CTO at TechFlow'),
@@ -19,7 +22,7 @@ export function LandingTestimonials() {
         {
             quote: t(
                 'landing.testimonials.items.michael.quote',
-                "The code quality is exceptional. It's clear that experienced Laravel developers built this. The multi-workspace feature was exactly what we needed.",
+                'The AI agent gets you 90% there. Starting from a template with an editable design makes a huge difference for our social team.',
             ),
             author: 'Michael Rodriguez',
             role: t(
@@ -32,12 +35,12 @@ export function LandingTestimonials() {
         {
             quote: t(
                 'landing.testimonials.items.emily.quote',
-                "Best SaaS starter kit I've used. The Stripe integration worked flawlessly, and the dark mode looks beautiful. Highly recommended!",
+                'The visual editor is excellent: multi-scene timeline and per-object animations. And the render always comes out identical — perfect for our brand.',
             ),
             author: 'Emily Watson',
             role: t(
                 'landing.testimonials.items.emily.role',
-                'Lead Developer at CloudBase',
+                'Head of Marketing at CloudBase',
             ),
             avatar: null,
             rating: 5,
@@ -46,20 +49,23 @@ export function LandingTestimonials() {
 
     const stats = [
         {
-            value: '1,000+',
-            label: t('landing.testimonials.stats.stars', 'GitHub Stars'),
+            value: '1,600+',
+            label: t('landing.testimonials.stats.stars', 'Templates'),
         },
         {
-            value: '50+',
-            label: t('landing.testimonials.stats.features', 'Features'),
+            value: '1080p/4K',
+            label: t('landing.testimonials.stats.features', 'Resolution'),
         },
         {
-            value: '100%',
-            label: t('landing.testimonials.stats.opensource', 'Open Source'),
+            value: '30+',
+            label: t(
+                'landing.testimonials.stats.opensource',
+                'Videos per month',
+            ),
         },
         {
-            value: 'MIT',
-            label: t('landing.testimonials.stats.license', 'License'),
+            value: 'pt/en/es',
+            label: t('landing.testimonials.stats.license', 'Support'),
         },
     ];
 
@@ -71,17 +77,14 @@ export function LandingTestimonials() {
                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
                         {t('landing.testimonials.title.part1', 'Loved by')}{' '}
                         <span className="text-primary">
-                            {t(
-                                'landing.testimonials.title.part2',
-                                'Developers',
-                            )}
+                            {t('landing.testimonials.title.part2', 'creators')}
                         </span>{' '}
                         {t('landing.testimonials.title.part3', 'Worldwide')}
                     </h2>
                     <p className="mt-4 text-lg text-muted-foreground">
                         {t(
                             'landing.testimonials.description',
-                            "Don't just take our word for it. Here's what developers are saying about Laravel SAAS Starter.",
+                            'See what creators are saying about AgentResolve.',
                         )}
                     </p>
                 </div>
@@ -149,50 +152,18 @@ export function LandingTestimonials() {
                     ))}
                 </div>
 
-                {/* GitHub Stats */}
-                <div className="mt-16">
-                    <p className="text-center text-sm text-muted-foreground">
+                <div className="mt-16 text-center">
+                    <p className="text-sm text-muted-foreground">
                         {t(
                             'landing.testimonials.community.join',
                             'Join the community',
                         )}
                     </p>
-                    <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
-                        <a
-                            href="https://github.com/xco-agency/laravel-saas-starter"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted"
-                        >
-                            <Github className="h-4 w-4" />
-                            {t(
-                                'landing.testimonials.community.star',
-                                'Star on GitHub',
-                            )}
-                        </a>
-                        <a
-                            href="https://github.com/xco-agency/laravel-saas-starter/issues"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted"
-                        >
-                            {t(
-                                'landing.testimonials.community.issues',
-                                'Report Issues',
-                            )}
-                        </a>
-                        <a
-                            href="https://github.com/xco-agency/laravel-saas-starter/discussions"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted"
-                        >
-                            {t(
-                                'landing.testimonials.community.discussions',
-                                'Join Discussions',
-                            )}
-                        </a>
-                    </div>
+                    <Button size="lg" asChild className="mt-5 h-11 px-7 text-sm">
+                        <Link href={register()}>
+                            {t('landing.cta.get_started', 'Start Creating Free')}
+                        </Link>
+                    </Button>
                 </div>
             </div>
         </section>
