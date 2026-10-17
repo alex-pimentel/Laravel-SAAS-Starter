@@ -29,7 +29,9 @@ export default function AuthSimpleLayout({
                         <div className="flex h-7 w-7 items-center justify-center rounded-sm bg-accent">
                             <Sparkles className="h-4 w-4 text-foreground" />
                         </div>
-                        <span className="text-base text-white">Laravel SAAS Starter</span>
+                        <span className="text-base text-white">
+                            {t('brand.name', 'AgentResolve')}
+                        </span>
                     </Link>
                     <Link
                         href={home()}
@@ -147,7 +149,9 @@ export default function AuthSimpleLayout({
                         <div className="flex h-7 w-7 items-center justify-center rounded-sm bg-foreground">
                             <Sparkles className="h-4 w-4 text-background" />
                         </div>
-                        <span className="text-base">Laravel SAAS Starter</span>
+                        <span className="text-base">
+                            {t('brand.name', 'AgentResolve')}
+                        </span>
                     </Link>
                     <AppearanceToggleDropdown />
                 </div>

@@ -95,7 +95,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                 className="flex h-full w-64 flex-col items-stretch justify-between bg-sidebar"
                             >
                                 <SheetTitle className="sr-only">
-                                    Navigation Menu
+                                    {t('navigation.menu', 'Navigation Menu')}
                                 </SheetTitle>
                                 <SheetHeader className="flex justify-start text-left">
                                     <AppLogoIcon className="h-6 w-6 fill-current text-black dark:text-white" />
@@ -201,7 +201,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                         new Event('open-command-palette'),
                                     )
                                 }
-                                title="Search (Cmd+K)"
+                                title={t('navigation.search', 'Search (Cmd+K)')}
                             >
                                 <Search className="!size-5 opacity-80 group-hover:opacity-100" />
                             </Button>

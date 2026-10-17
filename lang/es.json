@@ -303,5 +303,13 @@
     "feedback.placeholder.idea": "Describe tu idea de función…",
     "feedback.placeholder.general": "Comparte tus pensamientos…",
     "feedback.success": "¡Gracias! Tu comentario ha sido recibido.",
-    "feedback.submit": "Enviar"
+    "feedback.submit": "Enviar",
+    "onboarding.checklist.steps.profile.label": "Completa tu perfil",
+    "onboarding.checklist.steps.profile.description": "Añade una biografía y una foto de perfil",
+    "onboarding.checklist.steps.two_factor.label": "Activa la autenticación de dos factores",
+    "onboarding.checklist.steps.two_factor.description": "Protege tu cuenta con 2FA",
+    "onboarding.checklist.steps.invite_member.label": "Invita a un miembro del equipo",
+    "onboarding.checklist.steps.invite_member.description": "Haz crecer el equipo de tu espacio de trabajo",
+    "onboarding.checklist.steps.billing.label": "Conecta la facturación",
+    "onboarding.checklist.steps.billing.description": "Suscríbete a un plan para obtener acceso completo"
 }

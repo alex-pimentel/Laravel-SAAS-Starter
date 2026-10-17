@@ -112,7 +112,9 @@ export function NotificationsDropdown() {
                             <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500"></span>
                         </span>
                     )}
-                    <span className="sr-only">Notifications</span>
+                    <span className="sr-only">
+                        {t('notifications.title', 'Notifications')}
+                    </span>
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-80" align="end">
@@ -171,11 +173,17 @@ export function NotificationsDropdown() {
                                     <div className="flex-1 space-y-1">
                                         <p className="text-sm leading-none font-medium">
                                             {notification.data.title ||
-                                                'System Notification'}
+                                                t(
+                                                    'notifications.system_notification',
+                                                    'System Notification',
+                                                )}
                                         </p>
                                         <p className="line-clamp-2 text-sm text-muted-foreground">
                                             {notification.data.message ||
-                                                'You have a new notification.'}
+                                                t(
+                                                    'notifications.new_notification',
+                                                    'You have a new notification.',
+                                                )}
                                         </p>
                                         <p className="text-xs text-muted-foreground">
                                             {new Date(

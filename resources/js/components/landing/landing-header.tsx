@@ -37,7 +37,7 @@ export function LandingHeader({ canRegister = true }: LandingHeaderProps) {
                         <Sparkles className="h-4 w-4 text-background" />
                     </div>
                     <span className="text-base font-bold tracking-tight">
-                        Laravel SAAS Starter
+                        {t('brand.name', 'AgentResolve')}
                     </span>
                 </Link>
 

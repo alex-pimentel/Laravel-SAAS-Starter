@@ -303,5 +303,13 @@
     "feedback.placeholder.idea": "Describe your feature idea…",
     "feedback.placeholder.general": "Share your thoughts…",
     "feedback.success": "Thank you! Your feedback has been received.",
-    "feedback.submit": "Send Feedback"
+    "feedback.submit": "Send Feedback",
+    "onboarding.checklist.steps.profile.label": "Complete your profile",
+    "onboarding.checklist.steps.profile.description": "Add a bio and profile photo",
+    "onboarding.checklist.steps.two_factor.label": "Enable two-factor authentication",
+    "onboarding.checklist.steps.two_factor.description": "Secure your account with 2FA",
+    "onboarding.checklist.steps.invite_member.label": "Invite a team member",
+    "onboarding.checklist.steps.invite_member.description": "Grow your workspace team",
+    "onboarding.checklist.steps.billing.label": "Connect billing",
+    "onboarding.checklist.steps.billing.description": "Subscribe to a plan for full access"
 }

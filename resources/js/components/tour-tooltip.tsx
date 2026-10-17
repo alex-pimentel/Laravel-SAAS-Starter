@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { type TourStep } from '@/hooks/use-tour';
+import { useTranslations } from '@/hooks/use-translations';
 import { X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -23,6 +24,7 @@ export function TourTooltip({
     onNext,
     onSkip,
 }: TourTooltipProps) {
+    const { t } = useTranslations();
     const tooltipRef = useRef<HTMLDivElement>(null);
     const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
     const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
@@ -138,10 +140,12 @@ export function TourTooltip({
                                 onClick={onSkip}
                                 className="text-sm text-muted-foreground hover:text-foreground"
                             >
-                                Skip tour
+                                {t('tour.skip', 'Skip tour')}
                             </button>
                             <Button onClick={onNext} size="sm">
-                                {isLastStep ? 'Done' : 'Next →'}
+                                {isLastStep
+                                    ? t('tour.done', 'Done')
+                                    : t('tour.next', 'Next →')}
                             </Button>
                         </div>
                     </div>
@@ -189,7 +193,10 @@ export function TourTooltip({
                         ))}
                     </div>
                     <span className="text-xs text-muted-foreground">
-                        {stepIndex + 1} of {totalSteps}
+                        {t('tour.step_counter', '{{current}} of {{total}}', {
+                            current: stepIndex + 1,
+                            total: totalSteps,
+                        })}
                     </span>
                 </div>
 
@@ -203,10 +210,12 @@ export function TourTooltip({
                         onClick={onSkip}
                         className="text-sm text-muted-foreground hover:text-foreground"
                     >
-                        Skip tour
+                        {t('tour.skip', 'Skip tour')}
                     </button>
                     <Button onClick={onNext} size="sm">
-                        {isLastStep ? 'Done' : 'Next →'}
+                        {isLastStep
+                            ? t('tour.done', 'Done')
+                            : t('tour.next', 'Next →')}
                     </Button>
                 </div>
             </div>

@@ -303,5 +303,13 @@
     "feedback.placeholder.idea": "Descreva a sua ideia de recurso…",
     "feedback.placeholder.general": "Compartilhe o seu comentário…",
     "feedback.success": "Obrigado! Seu feedback foi recebido.",
-    "feedback.submit": "Enviar feedback"
+    "feedback.submit": "Enviar feedback",
+    "onboarding.checklist.steps.profile.label": "Complete o seu perfil",
+    "onboarding.checklist.steps.profile.description": "Adicione uma bio e uma foto de perfil",
+    "onboarding.checklist.steps.two_factor.label": "Ative a autenticação em dois fatores",
+    "onboarding.checklist.steps.two_factor.description": "Proteja a sua conta com 2FA",
+    "onboarding.checklist.steps.invite_member.label": "Convide um membro da equipe",
+    "onboarding.checklist.steps.invite_member.description": "Amplie a equipe do seu workspace",
+    "onboarding.checklist.steps.billing.label": "Conecte a cobrança",
+    "onboarding.checklist.steps.billing.description": "Assine um plano para ter acesso completo"
 }
