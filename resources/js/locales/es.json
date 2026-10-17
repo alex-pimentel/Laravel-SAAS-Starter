@@ -847,5 +847,8 @@
     "common.dismiss": "Descartar",
     "landing.features.items.admin.description": "En Pro, el agente de IA es ilimitado: de la idea al vídeo editable en minutos.",
     "landing.features.items.audit.description": "Anima textos, imágenes y formas individualmente para vídeos dinámicos y cuidados.",
-    "landing.features.items.flags.description": "Organiza escenas, ajusta tiempos y construye tu historia escena por escena."
+    "landing.features.items.flags.description": "Organiza escenas, ajusta tiempos y construye tu historia escena por escena.",
+    "billing.over_limit": "Por encima del límite",
+    "billing.remaining_percent": "{{percent}}% restante",
+    "billing.plan_label": "Plan {{plan}}"
 }

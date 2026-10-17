@@ -32,6 +32,8 @@ return [
                 'team_members' => 1,
                 'api_keys' => 1,
                 'webhooks' => 0,
+                'videos_per_month' => 3,
+                'agent_generations_per_month' => 10,
             ],
             'features' => [
                 '3 vídeos por mês',
@@ -58,6 +60,8 @@ return [
                 'team_members' => 5,
                 'api_keys' => 5,
                 'webhooks' => 3,
+                'videos_per_month' => 30,
+                'agent_generations_per_month' => -1,
             ],
             'features' => [
                 '30 vídeos por mês',
@@ -85,6 +89,8 @@ return [
                 'team_members' => -1, // Unlimited
                 'api_keys' => -1, // Unlimited
                 'webhooks' => -1, // Unlimited
+                'videos_per_month' => 150,
+                'agent_generations_per_month' => -1,
             ],
             'features' => [
                 '150 vídeos por mês',

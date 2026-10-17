@@ -13,6 +13,7 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from '@/components/ui/sidebar';
+import { useTranslations } from '@/hooks/use-translations';
 import { type SharedData } from '@/types';
 import { router, usePage } from '@inertiajs/react';
 import {
@@ -27,6 +28,7 @@ import {
 export function WorkspaceSwitcher() {
     const { currentWorkspace, workspaces } = usePage<SharedData>().props;
     const { isMobile } = useSidebar();
+    const { t } = useTranslations();
 
     const switchWorkspace = (workspaceId: number) => {
         router.post(`/workspaces/${workspaceId}/switch`);
@@ -61,7 +63,9 @@ export function WorkspaceSwitcher() {
                                     {currentWorkspace.name}
                                 </span>
                                 <span className="truncate text-xs text-muted-foreground">
-                                    {currentWorkspace.plan} Plan
+                                    {t('billing.plan_label', 'Plano {{plan}}', {
+                                        plan: currentWorkspace.plan,
+                                    })}
                                 </span>
                             </div>
                             <ChevronsUpDown className="ml-auto" />

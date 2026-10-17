@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\ProductUsageService;
 use Database\Factories\WorkspaceFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -427,7 +428,10 @@ class Workspace extends Model
             return $this->resolvedPlan = ['name' => 'Pro', 'key' => 'pro'];
         }
 
-        return $this->resolvedPlan = ['name' => 'Free', 'key' => 'free'];
+        return $this->resolvedPlan = [
+            'name' => config('billing.plans.free.name', 'Free'),
+            'key' => 'free',
+        ];
     }
 
     /**
@@ -553,6 +557,8 @@ class Workspace extends Model
         $plan = $this->plan_key;
         $limits = config("billing.plans.{$plan}.limits");
 
+        $productUsage = app(ProductUsageService::class);
+
         $usage = [];
 
         foreach ($limits as $key => $limit) {
@@ -560,13 +566,17 @@ class Workspace extends Model
                 'team_members' => $this->activeSeatCount(),
                 'api_keys' => $this->apiKeys()->count(),
                 'webhooks' => $this->webhookEndpoints()->count(),
+                'videos_per_month' => $productUsage->usedThisMonth($this, ProductUsageService::TYPE_VIDEO_RENDER),
+                'agent_generations_per_month' => $productUsage->usedThisMonth($this, ProductUsageService::TYPE_AGENT_GENERATION),
                 default => 0,
             };
 
             $label = match ($key) {
-                'team_members' => 'Team Members',
-                'api_keys' => 'API Keys',
-                'webhooks' => 'Webhooks',
+                'team_members' => __('usage.team_members'),
+                'api_keys' => __('usage.api_keys'),
+                'webhooks' => __('usage.webhooks'),
+                'videos_per_month' => __('usage.video_render'),
+                'agent_generations_per_month' => __('usage.agent_generation'),
                 default => ucfirst(str_replace('_', ' ', $key)),
             };
 

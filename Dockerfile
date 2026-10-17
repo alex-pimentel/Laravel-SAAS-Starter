@@ -32,6 +32,10 @@ RUN pnpm install && pnpm run build
 # # Remove dev dependencies after build
 # RUN composer install --no-dev --optimize-autoloader --no-scripts --no-interaction
 
+# Empty .env so Laravel's dotenv bootstrap has a file to read in this image
+# (real configuration comes from environment variables).
+RUN touch /app/.env
+
 # Add entrypoint script
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh

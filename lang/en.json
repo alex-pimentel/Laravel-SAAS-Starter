@@ -311,5 +311,10 @@
     "onboarding.checklist.steps.invite_member.label": "Invite a team member",
     "onboarding.checklist.steps.invite_member.description": "Grow your workspace team",
     "onboarding.checklist.steps.billing.label": "Connect billing",
-    "onboarding.checklist.steps.billing.description": "Subscribe to a plan for full access"
+    "onboarding.checklist.steps.billing.description": "Subscribe to a plan for full access",
+    "usage.team_members": "Team Members",
+    "usage.api_keys": "API Keys",
+    "usage.webhooks": "Webhooks",
+    "usage.video_render": "Rendered videos (this month)",
+    "usage.agent_generation": "Agent generations (this month)"
 }

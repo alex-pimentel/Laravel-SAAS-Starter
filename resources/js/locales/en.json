@@ -431,5 +431,8 @@
     "landing.testimonials.stats.features": "Resolution",
     "landing.testimonials.stats.license": "Support",
     "landing.testimonials.stats.opensource": "Videos per month",
-    "landing.testimonials.stats.stars": "Templates"
+    "landing.testimonials.stats.stars": "Templates",
+    "billing.over_limit": "Over limit",
+    "billing.remaining_percent": "{{percent}}% remaining",
+    "billing.plan_label": "{{plan}} plan"
 }

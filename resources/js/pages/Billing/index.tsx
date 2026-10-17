@@ -621,8 +621,12 @@ export default function BillingIndex({
                                                                 >
                                                                     <AlertCircle className="h-3 w-3" />
                                                                     {isOverLimit
-                                                                        ? 'Over limit'
-                                                                        : `${100 - percentage}% remaining`}
+                                                                        ? t('billing.over_limit', 'Over limit')
+                                                                        : t(
+                                                                              'billing.remaining_percent',
+                                                                              '{{percent}}% remaining',
+                                                                              { percent: 100 - percentage },
+                                                                          )}
                                                                 </p>
                                                             )}
                                                     </div>

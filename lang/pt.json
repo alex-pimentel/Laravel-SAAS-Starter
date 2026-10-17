@@ -311,5 +311,10 @@
     "onboarding.checklist.steps.invite_member.label": "Convide um membro da equipe",
     "onboarding.checklist.steps.invite_member.description": "Amplie a equipe do seu workspace",
     "onboarding.checklist.steps.billing.label": "Conecte a cobrança",
-    "onboarding.checklist.steps.billing.description": "Assine um plano para ter acesso completo"
+    "onboarding.checklist.steps.billing.description": "Assine um plano para ter acesso completo",
+    "usage.team_members": "Membros da equipe",
+    "usage.api_keys": "Chaves de API",
+    "usage.webhooks": "Webhooks",
+    "usage.video_render": "Vídeos renderizados (mês)",
+    "usage.agent_generation": "Gerações do agente (mês)"
 }
