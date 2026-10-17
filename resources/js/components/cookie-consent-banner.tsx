@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import { useTranslations } from '@/hooks/use-translations';
 import { useEffect, useState } from 'react';
 
 export type CookiePreferences = {
@@ -58,6 +59,7 @@ export function useCookieConsent() {
 }
 
 export default function CookieConsentBanner() {
+    const { t } = useTranslations();
     const { preferences, isLoaded, savePreferences } = useCookieConsent();
     const [showBanner, setShowBanner] = useState(false);
     const [showManager, setShowManager] = useState(false);
@@ -108,17 +110,23 @@ export default function CookieConsentBanner() {
                         <div className="flex flex-col items-center justify-between gap-4 rounded-md border border-border bg-background p-6 shadow-2xl sm:flex-row dark:shadow-black/50">
                             <div className="max-w-3xl flex-1 text-sm text-muted-foreground">
                                 <span className="mb-1 block font-semibold text-foreground">
-                                    We value your privacy
+                                    {t(
+                                        'cookies.title',
+                                        'We value your privacy',
+                                    )}
                                 </span>
-                                We use cookies and similar technologies to help
-                                personalize content, tailor and measure ads, and
-                                provide a better experience. By clicking "Accept
-                                All", you agree to this use to our{' '}
+                                {t(
+                                    'cookies.description',
+                                    'We use cookies and similar technologies to help personalize content, tailor and measure ads, and provide a better experience. By clicking "Accept All", you agree to this use to our',
+                                )}{' '}
                                 <a
                                     href="/privacy"
                                     className="underline hover:text-foreground"
                                 >
-                                    Privacy Policy
+                                    {t(
+                                        'cookies.privacy_policy',
+                                        'Privacy Policy',
+                                    )}
                                 </a>
                                 .
                             </div>
@@ -128,13 +136,16 @@ export default function CookieConsentBanner() {
                                     onClick={openManager}
                                     className="w-full sm:w-auto"
                                 >
-                                    Manage Preferences
+                                    {t(
+                                        'cookies.manage_preferences',
+                                        'Manage Preferences',
+                                    )}
                                 </Button>
                                 <Button
                                     onClick={handleAcceptAll}
                                     className="w-full sm:w-auto"
                                 >
-                                    Accept All
+                                    {t('cookies.accept_all', 'Accept All')}
                                 </Button>
                             </div>
                         </div>
@@ -148,11 +159,17 @@ export default function CookieConsentBanner() {
             >
                 <DialogContent className="sm:max-w-[500px]">
                     <DialogHeader>
-                        <DialogTitle>Cookie Preferences</DialogTitle>
+                        <DialogTitle>
+                            {t(
+                                'cookies.preferences.title',
+                                'Cookie Preferences',
+                            )}
+                        </DialogTitle>
                         <DialogDescription>
-                            Customize your cookie preferences. Necessary cookies
-                            cannot be disabled as they are required for the
-                            website to function.
+                            {t(
+                                'cookies.preferences.description',
+                                'Customize your cookie preferences. Necessary cookies cannot be disabled as they are required for the website to function.',
+                            )}
                         </DialogDescription>
                     </DialogHeader>
 
@@ -163,11 +180,16 @@ export default function CookieConsentBanner() {
                                     htmlFor="necessary"
                                     className="text-base font-semibold"
                                 >
-                                    Strictly Necessary
+                                    {t(
+                                        'cookies.necessary.title',
+                                        'Strictly Necessary',
+                                    )}
                                 </Label>
                                 <span className="text-sm text-muted-foreground">
-                                    These cookies are essential for you to
-                                    browse the website and use its features.
+                                    {t(
+                                        'cookies.necessary.description',
+                                        'These cookies are essential for you to browse the website and use its features.',
+                                    )}
                                 </span>
                             </div>
                             <Switch id="necessary" checked={true} disabled />
@@ -179,13 +201,16 @@ export default function CookieConsentBanner() {
                                     htmlFor="analytical"
                                     className="text-base font-semibold"
                                 >
-                                    Analytical
+                                    {t(
+                                        'cookies.analytical.title',
+                                        'Analytical',
+                                    )}
                                 </Label>
                                 <span className="text-sm text-muted-foreground">
-                                    These cookies help us understand how
-                                    visitors interact with the website by
-                                    collecting and reporting information
-                                    anonymously.
+                                    {t(
+                                        'cookies.analytical.description',
+                                        'These cookies help us understand how visitors interact with the website by collecting and reporting information anonymously.',
+                                    )}
                                 </span>
                             </div>
                             <Switch
@@ -206,12 +231,13 @@ export default function CookieConsentBanner() {
                                     htmlFor="marketing"
                                     className="text-base font-semibold"
                                 >
-                                    Marketing
+                                    {t('cookies.marketing.title', 'Marketing')}
                                 </Label>
                                 <span className="text-sm text-muted-foreground">
-                                    These cookies are used to track visitors
-                                    across websites to display relevant
-                                    advertisements.
+                                    {t(
+                                        'cookies.marketing.description',
+                                        'These cookies are used to track visitors across websites to display relevant advertisements.',
+                                    )}
                                 </span>
                             </div>
                             <Switch
@@ -233,13 +259,13 @@ export default function CookieConsentBanner() {
                             onClick={() => setShowManager(false)}
                             className="sm:mr-auto"
                         >
-                            Cancel
+                            {t('cookies.cancel', 'Cancel')}
                         </Button>
                         <Button variant="secondary" onClick={handleAcceptAll}>
-                            Accept All
+                            {t('cookies.accept_all', 'Accept All')}
                         </Button>
                         <Button onClick={handleAcceptSelected}>
-                            Save Preferences
+                            {t('cookies.save_preferences', 'Save Preferences')}
                         </Button>
                     </DialogFooter>
                 </DialogContent>

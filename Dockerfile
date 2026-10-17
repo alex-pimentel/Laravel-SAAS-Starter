@@ -15,8 +15,16 @@ RUN apt-get update && \
 # Install PHP dependencies (with dev deps for wayfinder)
 RUN composer install --optimize-autoloader --ignore-platform-reqs --no-scripts --no-interaction
 
-# Build frontend assets
-ENV CI=true
+# Build frontend assets (VITE_* is embedded at build time)
+ARG VITE_REVERB_APP_KEY=
+ARG VITE_REVERB_HOST=localhost
+ARG VITE_REVERB_PORT=8081
+ARG VITE_REVERB_SCHEME=http
+ENV CI=true \
+    VITE_REVERB_APP_KEY=$VITE_REVERB_APP_KEY \
+    VITE_REVERB_HOST=$VITE_REVERB_HOST \
+    VITE_REVERB_PORT=$VITE_REVERB_PORT \
+    VITE_REVERB_SCHEME=$VITE_REVERB_SCHEME
 RUN pnpm install && pnpm run build
 
 # # Remove dev dependencies after build

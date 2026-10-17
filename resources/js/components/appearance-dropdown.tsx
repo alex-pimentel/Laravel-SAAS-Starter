@@ -6,6 +6,7 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAppearance } from '@/hooks/use-appearance';
+import { useTranslations } from '@/hooks/use-translations';
 import { Monitor, Moon, Sun } from 'lucide-react';
 import { HTMLAttributes } from 'react';
 
@@ -14,6 +15,7 @@ export default function AppearanceToggleDropdown({
     ...props
 }: HTMLAttributes<HTMLDivElement>) {
     const { appearance, updateAppearance } = useAppearance();
+    const { t } = useTranslations();
 
     const getCurrentIcon = () => {
         switch (appearance) {
@@ -36,7 +38,9 @@ export default function AppearanceToggleDropdown({
                         className="h-9 w-9 rounded-md"
                     >
                         {getCurrentIcon()}
-                        <span className="sr-only">Toggle theme</span>
+                        <span className="sr-only">
+                            {t('common.toggle_theme', 'Toggle theme')}
+                        </span>
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">

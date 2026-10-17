@@ -12,6 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import { useTranslations } from '@/hooks/use-translations';
 import { cn } from '@/lib/utils';
 import { SharedData } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
@@ -114,6 +115,7 @@ function PlanCard({
     billingPeriod: 'monthly' | 'yearly';
     onSelect: () => void;
 }) {
+    const { t } = useTranslations();
     const price =
         billingPeriod === 'monthly' ? plan.monthlyPrice : plan.yearlyPrice;
     const isFree = price === 0;
@@ -132,33 +134,51 @@ function PlanCard({
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                     <Badge className="bg-primary text-primary-foreground">
                         <Sparkles className="mr-1 h-3 w-3" />
-                        Most Popular
+                        {t(
+                            'onboarding.wizard.plans.most_popular',
+                            'Most Popular',
+                        )}
                     </Badge>
                 </div>
             )}
 
             <div className="mb-4">
-                <h3 className="text-xl font-bold">{plan.name}</h3>
+                <h3 className="text-xl font-bold">
+                    {t(`onboarding.wizard.plans.${plan.id}.name`, plan.name)}
+                </h3>
                 <p className="text-sm text-muted-foreground">
-                    {plan.description}
+                    {t(
+                        `onboarding.wizard.plans.${plan.id}.description`,
+                        plan.description,
+                    )}
                 </p>
             </div>
 
             <div className="mb-4">
                 <div className="flex items-baseline gap-1">
                     <span className="text-3xl font-bold">
-                        {isFree ? 'Free' : `$${price}`}
+                        {isFree
+                            ? t('onboarding.wizard.plans.free_price', 'Free')
+                            : `$${price}`}
                     </span>
                     {!isFree && (
                         <span className="text-muted-foreground">
-                            /{billingPeriod === 'monthly' ? 'mo' : 'yr'}
+                            {billingPeriod === 'monthly'
+                                ? `/${t('onboarding.wizard.plans.mo', 'mo')}`
+                                : `/${t('onboarding.wizard.plans.yr', 'yr')}`}
                         </span>
                     )}
                 </div>
                 {!isFree && billingPeriod === 'yearly' && (
                     <p className="text-xs text-green-600 dark:text-green-400">
-                        Save ${plan.monthlyPrice * 12 - plan.yearlyPrice} per
-                        year
+                        {t(
+                            'onboarding.wizard.plans.save_per_year',
+                            'Save ${{amount}} per year',
+                            {
+                                amount:
+                                    plan.monthlyPrice * 12 - plan.yearlyPrice,
+                            },
+                        )}
                     </p>
                 )}
             </div>
@@ -167,7 +187,12 @@ function PlanCard({
                 {plan.features.map((feature, index) => (
                     <li key={index} className="flex items-start gap-2 text-sm">
                         <Check className="h-4 w-4 shrink-0 text-green-600 dark:text-green-400" />
-                        <span>{feature}</span>
+                        <span>
+                            {t(
+                                `onboarding.wizard.plans.${plan.id}.features.${index}`,
+                                feature,
+                            )}
+                        </span>
                     </li>
                 ))}
             </ul>
@@ -180,7 +205,14 @@ function PlanCard({
                     onSelect();
                 }}
             >
-                {isSelected ? 'Selected' : 'Choose ' + plan.name}
+                {isSelected
+                    ? t('onboarding.wizard.plans.selected', 'Selected')
+                    : t('onboarding.wizard.plans.choose', 'Choose {{plan}}', {
+                          plan: t(
+                              `onboarding.wizard.plans.${plan.id}.name`,
+                              plan.name,
+                          ),
+                      })}
             </Button>
         </div>
     );
@@ -188,6 +220,7 @@ function PlanCard({
 
 export default function OnboardingWizard() {
     const { auth } = usePage<SharedData>().props;
+    const { t } = useTranslations();
     const [step, setStep] = useState(1);
 
     const { data, setData, post, processing, errors } = useForm({
@@ -219,7 +252,7 @@ export default function OnboardingWizard() {
 
     return (
         <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4 md:p-8">
-            <Head title="Welcome to XCO" />
+            <Head title={t('onboarding.wizard.page_title', 'Welcome to XCO')} />
 
             <div className="mb-8 flex items-center gap-2">
                 <div className="h-10 text-primary">
@@ -242,7 +275,7 @@ export default function OnboardingWizard() {
                             1
                         </div>
                         <span className="mt-2 text-xs font-medium text-muted-foreground">
-                            Welcome
+                            {t('onboarding.wizard.steps.welcome', 'Welcome')}
                         </span>
                     </div>
                     <div
@@ -263,7 +296,10 @@ export default function OnboardingWizard() {
                             2
                         </div>
                         <span className="mt-2 text-xs font-medium text-muted-foreground">
-                            Workspace
+                            {t(
+                                'onboarding.wizard.steps.workspace',
+                                'Workspace',
+                            )}
                         </span>
                     </div>
                     <div
@@ -284,7 +320,7 @@ export default function OnboardingWizard() {
                             3
                         </div>
                         <span className="mt-2 text-xs font-medium text-muted-foreground">
-                            Plan
+                            {t('onboarding.wizard.steps.plan', 'Plan')}
                         </span>
                     </div>
                 </div>
@@ -295,11 +331,17 @@ export default function OnboardingWizard() {
                         <Card className="mx-auto max-w-md animate-in border-none shadow-lg duration-500 fade-in slide-in-from-right-4">
                             <CardHeader className="text-center">
                                 <CardTitle className="text-2xl">
-                                    Welcome, {auth.user.name}!
+                                    {t(
+                                        'onboarding.wizard.welcome.title',
+                                        'Welcome, {{name}}!',
+                                        { name: auth.user.name },
+                                    )}
                                 </CardTitle>
                                 <CardDescription>
-                                    Let's get your account set up. This will
-                                    only take a minute.
+                                    {t(
+                                        'onboarding.wizard.welcome.description',
+                                        "Let's get your account set up. This will only take a minute.",
+                                    )}
                                 </CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-6">
@@ -310,11 +352,16 @@ export default function OnboardingWizard() {
                                         </div>
                                         <div>
                                             <h4 className="flex items-center gap-2 font-medium">
-                                                Create your organization
+                                                {t(
+                                                    'onboarding.wizard.welcome.create_organization.title',
+                                                    'Create your organization',
+                                                )}
                                             </h4>
                                             <p className="text-sm text-muted-foreground">
-                                                Set up your primary workspace to
-                                                collaborate with your team.
+                                                {t(
+                                                    'onboarding.wizard.welcome.create_organization.description',
+                                                    'Set up your primary workspace to collaborate with your team.',
+                                                )}
                                             </p>
                                         </div>
                                     </div>
@@ -325,11 +372,16 @@ export default function OnboardingWizard() {
                                         </div>
                                         <div>
                                             <h4 className="flex items-center gap-2 font-medium">
-                                                Start collaborating
+                                                {t(
+                                                    'onboarding.wizard.welcome.start_collaborating.title',
+                                                    'Start collaborating',
+                                                )}
                                             </h4>
                                             <p className="text-sm text-muted-foreground">
-                                                Invite team members and start
-                                                utilizing the platform together.
+                                                {t(
+                                                    'onboarding.wizard.welcome.start_collaborating.description',
+                                                    'Invite team members and start utilizing the platform together.',
+                                                )}
                                             </p>
                                         </div>
                                     </div>
@@ -341,7 +393,10 @@ export default function OnboardingWizard() {
                                     size="lg"
                                     onClick={nextStep}
                                 >
-                                    Get Started
+                                    {t(
+                                        'onboarding.wizard.welcome.get_started',
+                                        'Get Started',
+                                    )}
                                     <ChevronRight className="ml-2 h-4 w-4" />
                                 </Button>
                             </CardFooter>
@@ -359,21 +414,32 @@ export default function OnboardingWizard() {
                             >
                                 <CardHeader>
                                     <CardTitle className="text-2xl">
-                                        Name your Workspace
+                                        {t(
+                                            'onboarding.wizard.workspace.title',
+                                            'Name your Workspace',
+                                        )}
                                     </CardTitle>
                                     <CardDescription>
-                                        What's the name of your company or
-                                        organization? You can change this later.
+                                        {t(
+                                            'onboarding.wizard.workspace.description',
+                                            "What's the name of your company or organization? You can change this later.",
+                                        )}
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div className="space-y-2">
                                         <Label htmlFor="workspace_name">
-                                            Workspace Name
+                                            {t(
+                                                'onboarding.wizard.workspace.name_label',
+                                                'Workspace Name',
+                                            )}
                                         </Label>
                                         <Input
                                             id="workspace_name"
-                                            placeholder="e.g. Acme Corporation"
+                                            placeholder={t(
+                                                'onboarding.wizard.workspace.name_placeholder',
+                                                'e.g. Acme Corporation',
+                                            )}
                                             value={data.workspace_name}
                                             onChange={(e) =>
                                                 setData(
@@ -394,13 +460,16 @@ export default function OnboardingWizard() {
                                     <div className="rounded-lg bg-muted/50 p-4">
                                         <h4 className="mb-2 flex items-center gap-2 text-sm font-medium">
                                             <Store className="h-4 w-4 text-muted-foreground" />
-                                            What is a Workspace?
+                                            {t(
+                                                'onboarding.wizard.workspace.info.title',
+                                                'What is a Workspace?',
+                                            )}
                                         </h4>
                                         <p className="text-xs leading-relaxed text-muted-foreground">
-                                            A workspace is a dedicated
-                                            environment where you and your team
-                                            can collaborate securely. You are
-                                            designated as the owner.
+                                            {t(
+                                                'onboarding.wizard.workspace.info.description',
+                                                'A workspace is a dedicated environment where you and your team can collaborate securely. You are designated as the owner.',
+                                            )}
                                         </p>
                                     </div>
                                 </CardContent>
@@ -410,14 +479,17 @@ export default function OnboardingWizard() {
                                         variant="ghost"
                                         onClick={() => setStep(1)}
                                     >
-                                        Back
+                                        {t('onboarding.wizard.back', 'Back')}
                                     </Button>
                                     <Button
                                         type="submit"
                                         disabled={!data.workspace_name.trim()}
                                         className="min-w-32"
                                     >
-                                        Continue
+                                        {t(
+                                            'onboarding.wizard.continue',
+                                            'Continue',
+                                        )}
                                         <ChevronRight className="ml-2 h-4 w-4" />
                                     </Button>
                                 </CardFooter>
@@ -430,11 +502,16 @@ export default function OnboardingWizard() {
                         <div className="animate-in duration-500 fade-in slide-in-from-right-4">
                             <div className="mb-8 text-center">
                                 <h2 className="mb-2 text-3xl font-bold">
-                                    Choose your plan
+                                    {t(
+                                        'onboarding.wizard.plan.title',
+                                        'Choose your plan',
+                                    )}
                                 </h2>
                                 <p className="text-muted-foreground">
-                                    Select the plan that fits your needs. You
-                                    can upgrade or downgrade at any time.
+                                    {t(
+                                        'onboarding.wizard.plan.description',
+                                        'Select the plan that fits your needs. You can upgrade or downgrade at any time.',
+                                    )}
                                 </p>
                             </div>
 
@@ -449,7 +526,10 @@ export default function OnboardingWizard() {
                                             : 'text-muted-foreground',
                                     )}
                                 >
-                                    Monthly
+                                    {t(
+                                        'onboarding.wizard.billing.monthly',
+                                        'Monthly',
+                                    )}
                                 </span>
                                 <Switch
                                     checked={
@@ -472,10 +552,16 @@ export default function OnboardingWizard() {
                                             : 'text-muted-foreground',
                                     )}
                                 >
-                                    Yearly
+                                    {t(
+                                        'onboarding.wizard.billing.yearly',
+                                        'Yearly',
+                                    )}
                                 </span>
                                 <Badge variant="secondary" className="ml-2">
-                                    Save up to 17%
+                                    {t(
+                                        'onboarding.wizard.billing.save_badge',
+                                        'Save up to 17%',
+                                    )}
                                 </Badge>
                             </div>
 
@@ -510,17 +596,35 @@ export default function OnboardingWizard() {
                                     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                                         <div>
                                             <p className="text-sm text-muted-foreground">
-                                                Selected plan
+                                                {t(
+                                                    'onboarding.wizard.summary.selected_plan',
+                                                    'Selected plan',
+                                                )}
                                             </p>
                                             <div className="flex items-baseline gap-2">
                                                 <h3 className="text-xl font-bold">
-                                                    {selectedPlan.name}
+                                                    {t(
+                                                        `onboarding.wizard.plans.${selectedPlan.id}.name`,
+                                                        selectedPlan.name,
+                                                    )}
                                                 </h3>
                                                 <span className="text-muted-foreground">
                                                     {data.onboarding_billing_period ===
                                                     'monthly'
-                                                        ? `$${selectedPlan.monthlyPrice}/month`
-                                                        : `$${selectedPlan.yearlyPrice}/year`}
+                                                        ? t(
+                                                              'onboarding.wizard.summary.per_month',
+                                                              '${{price}}/month',
+                                                              {
+                                                                  price: selectedPlan.monthlyPrice,
+                                                              },
+                                                          )
+                                                        : t(
+                                                              'onboarding.wizard.summary.per_year',
+                                                              '${{price}}/year',
+                                                              {
+                                                                  price: selectedPlan.yearlyPrice,
+                                                              },
+                                                          )}
                                                 </span>
                                             </div>
                                             <p className="text-xs text-muted-foreground">
@@ -528,20 +632,64 @@ export default function OnboardingWizard() {
                                                     .workspaces === -1 ? (
                                                     <span className="flex items-center gap-1">
                                                         <InfinityIcon className="h-3 w-3" />{' '}
-                                                        Unlimited workspaces
+                                                        {t(
+                                                            'onboarding.wizard.summary.unlimited_workspaces',
+                                                            'Unlimited workspaces',
+                                                        )}
                                                     </span>
+                                                ) : selectedPlan.limits
+                                                      .workspaces === 1 ? (
+                                                    t(
+                                                        'onboarding.wizard.summary.workspace',
+                                                        '{{number}} workspace',
+                                                        {
+                                                            number: selectedPlan
+                                                                .limits
+                                                                .workspaces,
+                                                        },
+                                                    )
                                                 ) : (
-                                                    `${selectedPlan.limits.workspaces} workspace${selectedPlan.limits.workspaces !== 1 ? 's' : ''}`
+                                                    t(
+                                                        'onboarding.wizard.summary.workspaces',
+                                                        '{{number}} workspaces',
+                                                        {
+                                                            number: selectedPlan
+                                                                .limits
+                                                                .workspaces,
+                                                        },
+                                                    )
                                                 )}
                                                 {' · '}
                                                 {selectedPlan.limits
                                                     .team_members === -1 ? (
                                                     <span className="flex items-center gap-1">
                                                         <InfinityIcon className="h-3 w-3" />{' '}
-                                                        Unlimited members
+                                                        {t(
+                                                            'onboarding.wizard.summary.unlimited_members',
+                                                            'Unlimited members',
+                                                        )}
                                                     </span>
+                                                ) : selectedPlan.limits
+                                                      .team_members === 1 ? (
+                                                    t(
+                                                        'onboarding.wizard.summary.team_member',
+                                                        '{{number}} team member',
+                                                        {
+                                                            number: selectedPlan
+                                                                .limits
+                                                                .team_members,
+                                                        },
+                                                    )
                                                 ) : (
-                                                    `${selectedPlan.limits.team_members} team member${selectedPlan.limits.team_members !== 1 ? 's' : ''}`
+                                                    t(
+                                                        'onboarding.wizard.summary.team_members',
+                                                        '{{number}} team members',
+                                                        {
+                                                            number: selectedPlan
+                                                                .limits
+                                                                .team_members,
+                                                        },
+                                                    )
                                                 )}
                                             </p>
                                         </div>
@@ -550,7 +698,10 @@ export default function OnboardingWizard() {
                                                 variant="ghost"
                                                 onClick={() => setStep(2)}
                                             >
-                                                Back
+                                                {t(
+                                                    'onboarding.wizard.back',
+                                                    'Back',
+                                                )}
                                             </Button>
                                             <Button
                                                 onClick={submit}
@@ -559,11 +710,20 @@ export default function OnboardingWizard() {
                                                 className="min-w-[160px]"
                                             >
                                                 {processing
-                                                    ? 'Setting up...'
+                                                    ? t(
+                                                          'onboarding.wizard.summary.setting_up',
+                                                          'Setting up...',
+                                                      )
                                                     : selectedPlan.monthlyPrice ===
                                                         0
-                                                      ? 'Start Free'
-                                                      : 'Continue to Payment'}
+                                                      ? t(
+                                                            'onboarding.wizard.summary.start_free',
+                                                            'Start Free',
+                                                        )
+                                                      : t(
+                                                            'onboarding.wizard.summary.continue_to_payment',
+                                                            'Continue to Payment',
+                                                        )}
                                             </Button>
                                         </div>
                                     </div>
@@ -580,7 +740,10 @@ export default function OnboardingWizard() {
                 </div>
             </div>
             <div className="mt-8 text-center text-sm text-muted-foreground">
-                Secured by XCO SAAS Starter
+                {t(
+                    'onboarding.wizard.secured_by',
+                    'Secured by XCO SAAS Starter',
+                )}
             </div>
         </div>
     );
