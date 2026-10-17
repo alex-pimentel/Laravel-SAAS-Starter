@@ -17,8 +17,9 @@ interface LanguageSwitcherProps {
 
 const languages = [
     { code: 'en', label: 'English' },
-    { code: 'fr', label: 'Français' },
+    { code: 'pt', label: 'Português (BR)' },
     { code: 'es', label: 'Español' },
+    { code: 'fr', label: 'Français' },
     { code: 'ar', label: 'العربية' },
 ];
 

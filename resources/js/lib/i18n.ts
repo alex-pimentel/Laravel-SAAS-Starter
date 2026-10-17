@@ -6,12 +6,14 @@ import ar from '../locales/ar.json';
 import en from '../locales/en.json';
 import es from '../locales/es.json';
 import fr from '../locales/fr.json';
+import pt from '../locales/pt.json';
 
 const resources = {
     en: { translation: en },
     fr: { translation: fr },
     es: { translation: es },
     ar: { translation: ar },
+    pt: { translation: pt },
 };
 
 i18n.use(LanguageDetector)
@@ -19,7 +21,7 @@ i18n.use(LanguageDetector)
     .init({
         resources,
         fallbackLng: 'en',
-        supportedLngs: ['en', 'fr', 'es', 'ar'],
+        supportedLngs: ['en', 'fr', 'es', 'ar', 'pt'],
         defaultNS: 'translation',
         ns: 'translation',
         interpolation: {
