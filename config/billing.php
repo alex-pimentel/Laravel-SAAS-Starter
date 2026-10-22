@@ -15,6 +15,21 @@ return [
     |
     */
 
+    /*
+    |--------------------------------------------------------------------------
+    | Currency
+    |--------------------------------------------------------------------------
+    |
+    | Currency used to create Stripe prices (stripe:create-plans) and to
+    | display plan prices. Use the ISO code (brl, usd, eur...) and the symbol
+    | shown in the UI.
+    |
+    */
+
+    'currency' => env('BILLING_CURRENCY', 'brl'),
+
+    'currency_symbol' => env('BILLING_CURRENCY_SYMBOL', 'R$'),
+
     'plans' => [
         'free' => [
             'name' => 'Grátis',

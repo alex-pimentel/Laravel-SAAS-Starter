@@ -291,7 +291,7 @@ export default function PlansPage({
                                     </CardDescription>
                                     <div className="mt-6">
                                         <span className="text-5xl font-black tracking-tighter">
-                                            $
+                                            {plan.currency_symbol ?? '$'}
                                             {billingPeriod === 'monthly'
                                                 ? plan.price.monthly
                                                 : plan.price.yearly}

@@ -217,7 +217,7 @@ export default function BillingIndex({
                                         {currentPlan && (
                                             <p className="font-medium text-muted-foreground">
                                                 {currentPlan.price.monthly > 0
-                                                    ? `$${currentPlan.price.monthly}/month`
+                                                    ? `${currentPlan.currency_symbol ?? '$'}${currentPlan.price.monthly}/month`
                                                     : t(
                                                           'billing.free_forever',
                                                           'Free forever',

@@ -85,7 +85,7 @@ class CreateStripePlans extends Command
                     $newPrice = $stripe->prices->create([
                         'product' => $product->id,
                         'unit_amount' => $price * 100, // Convert to cents
-                        'currency' => 'usd',
+                        'currency' => config('billing.currency', 'brl'),
                         'recurring' => [
                             'interval' => $intervalName,
                         ],

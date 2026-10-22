@@ -335,6 +335,7 @@ class BillingController extends Controller
                 'name' => $plan['name'],
                 'description' => $plan['description'],
                 'price' => $plan['price'],
+                'currency_symbol' => config('billing.currency_symbol', 'R$'),
                 'features' => $plan['features'],
                 'limits' => $plan['limits'],
                 'popular' => $plan['popular'] ?? false,

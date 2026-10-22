@@ -83,6 +83,7 @@ export interface Plan {
         monthly: number;
         yearly: number;
     };
+    currency_symbol?: string;
     features: string[];
     limits: {
         workspaces: number;
