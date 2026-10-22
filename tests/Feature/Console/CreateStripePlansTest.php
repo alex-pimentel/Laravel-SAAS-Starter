@@ -62,7 +62,7 @@ it('creates stripe products and prices', function () {
                 ->with([
                     'product' => "prod_{$planKey}",
                     'unit_amount' => $price * 100,
-                    'currency' => 'usd',
+                    'currency' => config('billing.currency', 'brl'),
                     'recurring' => ['interval' => $interval === 'monthly' ? 'month' : 'year'],
                     'lookup_key' => $lookupKey,
                     'metadata' => [

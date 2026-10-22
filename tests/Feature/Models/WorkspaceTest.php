@@ -43,6 +43,6 @@ test('workspace can update user role', function () {
 test('workspace resolves plan name correctly', function () {
     $workspace = Workspace::factory()->create();
 
-    // Default should be Free
-    expect($workspace->plan_name)->toBe('Free');
+    // Default should be the free plan
+    expect($workspace->plan_name)->toBe('Grátis');
 });

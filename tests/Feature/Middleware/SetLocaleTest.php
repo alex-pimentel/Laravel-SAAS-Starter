@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 
 it('sets locale from authenticated user preference', function () {
-    $user = User::factory()->withoutTwoFactor()->create(['locale' => 'fr']);
+    $user = User::factory()->withoutTwoFactor()->create(['locale' => 'es']);
 
     $middleware = new SetLocale;
     $request = Request::create('/test');
@@ -17,7 +17,7 @@ it('sets locale from authenticated user preference', function () {
         return response('ok');
     });
 
-    expect(App::getLocale())->toBe('fr');
+    expect(App::getLocale())->toBe('es');
 });
 
 it('falls back to config locale for guest without session locale', function () {
@@ -72,4 +72,4 @@ it('accepts all supported locales', function (string $locale) {
     });
 
     expect(App::getLocale())->toBe($locale);
-})->with(['en', 'es', 'fr', 'ar']);
+})->with(['en', 'es', 'pt']);

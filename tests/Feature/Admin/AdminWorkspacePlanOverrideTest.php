@@ -49,7 +49,7 @@ it('plan_override takes precedence over subscription in plan_name', function () 
 });
 
 it('no override returns free plan for unsubscribed workspace', function () {
-    expect($this->workspace->fresh()->plan_name)->toBe('Free');
+    expect($this->workspace->fresh()->plan_name)->toBe('Grátis');
 });
 
 it('validates plan_override max length', function () {

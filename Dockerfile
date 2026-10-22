@@ -1,7 +1,29 @@
-FROM xcoagency/laravel-frankenphp-octane:latest
+# PHP 8.5 (imagem oficial do FrankenPHP, Debian trixie).
+# Substitui xcoagency/laravel-frankenphp-octane, que só publica 8.4.
+# Fixar a versão exata garante builds reproduzíveis (atualizar conscientemente).
+FROM dunglas/frankenphp:1.13.2-php8.5.12
 
 WORKDIR /app
 COPY . /app
+
+# Extensões PHP do app (mesmo conjunto da imagem anterior + pdo_pgsql p/ Postgres)
+RUN install-php-extensions \
+    bcmath \
+    excimer \
+    exif \
+    gd \
+    intl \
+    pcntl \
+    pdo_mysql \
+    pdo_pgsql \
+    pdo_sqlite \
+    redis \
+    sodium \
+    xsl \
+    zip
+
+# Composer (a imagem oficial não traz)
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
 # Install Node.js and pnpm
 RUN apt-get update && \
@@ -40,8 +62,7 @@ RUN touch /app/.env
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-RUN echo "upload_max_filesize = 400M" >> /usr/local/etc/php/php.ini && \
-    echo "post_max_size = 500M" >> /usr/local/etc/php/php.ini
+RUN printf 'upload_max_filesize = 400M\npost_max_size = 500M\nmemory_limit = 256M\n' >> /usr/local/etc/php/php.ini
 
 EXPOSE 8000
 

@@ -67,7 +67,7 @@ it('allows superadmin to terminate all sessions for a user', function () {
         ->assertSessionHas('success');
 
     expect(DB::table('sessions')->where('user_id', $this->user->id)->count())->toBe(0)
-        ->and(DB::table('sessions')->where('user_id', $this->superadmin->id)->count())->toBe(1);
+        ->and(DB::table('sessions')->where('id', 's3')->exists())->toBeTrue();
 });
 
 it('blocks non-superadmins from terminating a specific user session', function () {

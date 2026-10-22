@@ -129,23 +129,7 @@ class WorkspaceService
      */
     public function canCreateWorkspace(User $user): bool
     {
-        $config = config('billing.plans');
-        $ownedWorkspaces = $user->ownedWorkspaces()->count();
-
-        // Get the user's best plan (from any workspace they own)
-        $maxWorkspaces = $config['free']['limits']['workspaces'];
-
-        foreach ($user->ownedWorkspaces as $workspace) {
-            if ($workspace->onBusinessPlan()) {
-                return true; // Unlimited workspaces
-            }
-
-            if ($workspace->onProPlan()) {
-                $maxWorkspaces = max($maxWorkspaces, $config['pro']['limits']['workspaces']);
-            }
-        }
-
-        return $ownedWorkspaces < $maxWorkspaces;
+        return app(PlanLimitService::class)->canCreateWorkspace($user);
     }
 
     /**
@@ -153,24 +137,6 @@ class WorkspaceService
      */
     public function getWorkspaceLimitMessage(User $user): string
     {
-        $config = config('billing.plans');
-        $ownedWorkspaces = $user->ownedWorkspaces()->count();
-
-        // Find the highest plan
-        $currentPlan = 'Free';
-        $limit = $config['free']['limits']['workspaces'];
-
-        foreach ($user->ownedWorkspaces as $workspace) {
-            if ($workspace->onBusinessPlan()) {
-                return 'You have unlimited workspaces on the Business plan.';
-            }
-
-            if ($workspace->onProPlan()) {
-                $currentPlan = 'Pro';
-                $limit = $config['pro']['limits']['workspaces'];
-            }
-        }
-
-        return "You have created {$ownedWorkspaces} of {$limit} workspaces on the {$currentPlan} plan.";
+        return app(PlanLimitService::class)->getWorkspaceLimitMessage($user);
     }
 }

@@ -7,16 +7,16 @@ use Illuminate\Support\Facades\Session;
 it('allows guests to update their locale preference in the session', function () {
     // Assert initial state mapping
     expect(Session::get('locale'))->toBeNull();
-    expect(App::getLocale())->toBe('en');
+    expect(App::getLocale())->toBe('pt');
 
     $response = $this->patch('/locale', [
-        'locale' => 'fr',
+        'locale' => 'es',
     ]);
 
     $response->assertRedirect();
 
     // Assert session was updated
-    expect(Session::get('locale'))->toBe('fr');
+    expect(Session::get('locale'))->toBe('es');
 });
 
 it('allows authenticated users to update their locale in session and database', function () {
@@ -53,9 +53,9 @@ it('rejects invalid locales', function () {
 
 it('redirects back to the previous page', function () {
     $response = $this->from('/some-previous-page')->patch('/locale', [
-        'locale' => 'ar',
+        'locale' => 'es',
     ]);
 
     $response->assertRedirect('/some-previous-page');
-    expect(Session::get('locale'))->toBe('ar');
+    expect(Session::get('locale'))->toBe('es');
 });

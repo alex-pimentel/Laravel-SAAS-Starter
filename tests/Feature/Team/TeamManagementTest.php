@@ -423,6 +423,9 @@ describe('Team Invitation', function () {
     });
 
     it('allows inviting a viewer role', function () {
+        // Pro plan: 5 seats, only the owner is a member
+        $this->workspace->update(['plan_override' => 'pro']);
+
         $this->actingAs($this->owner)
             ->post('/team/invite', [
                 'email' => 'viewer-invite@example.com',

@@ -7,7 +7,7 @@ use App\Services\PlanLimitService;
 use Illuminate\Support\Facades\Notification;
 
 beforeEach(function () {
-    // Without a subscription, workspaces default to the free plan (team_members: 2)
+    // Without a subscription, workspaces default to the free plan (team_members: 1)
     $this->owner = User::factory()->create();
     $this->workspace = Workspace::factory()->create([
         'owner_id' => $this->owner->id,
@@ -33,7 +33,9 @@ describe('SendPlanUsageAlerts command', function () {
     it('does not send a notification when usage is below 80%', function () {
         Notification::fake();
 
-        // Free plan has 2 team_members limit; only the owner is a member (50%)
+        // Pro plan has 5 team_members; only the owner is a member (20%)
+        $this->workspace->update(['plan_override' => 'pro']);
+
         $this->artisan('app:send-plan-usage-alerts')->assertSuccessful();
 
         Notification::assertNothingSent();

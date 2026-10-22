@@ -24,21 +24,23 @@ it('reports the correct seat count', function () {
 });
 
 it('returns the correct seat limit for the free plan', function () {
-    // Workspace defaults to Free plan (no Stripe subscription)
-    expect($this->workspace->seatLimit())->toBe(2);
+    // Workspace defaults to Free plan (no Stripe subscription) — solo seat
+    expect($this->workspace->seatLimit())->toBe(1);
 });
 
 it('has an available seat when under the limit', function () {
-    // Only the owner — 1 of 2 used
-    expect($this->workspace->hasAvailableSeat())->toBeTrue();
+    // Pro plan: 5 seats, only the owner (1) is a member
+    $this->workspace->update(['plan_override' => 'pro']);
+
+    expect($this->workspace->fresh()->hasAvailableSeat())->toBeTrue();
 });
 
 it('has no available seat when at the free limit', function () {
     $member = User::factory()->create();
     $this->workspace->users()->attach($member, ['role' => 'member']);
 
-    // 2 of 2 used — at limit
-    expect($this->workspace->hasAvailableSeat())->toBeFalse();
+    // 2 users on a 1-seat free plan — over the limit
+    expect($this->workspace->fresh()->hasAvailableSeat())->toBeFalse();
 });
 
 it('blocks invitation when workspace is at the seat limit', function () {
@@ -54,7 +56,9 @@ it('blocks invitation when workspace is at the seat limit', function () {
 it('allows invitation when under the seat limit', function () {
     Notification::fake();
 
-    // Only owner — 1 of 2 used
+    // Pro plan: 5 seats, only the owner (1) is a member
+    $this->workspace->update(['plan_override' => 'pro']);
+
     actingAs($this->owner)
         ->post('/team/invite', ['email' => 'new@example.com', 'role' => 'member'])
         ->assertRedirect()

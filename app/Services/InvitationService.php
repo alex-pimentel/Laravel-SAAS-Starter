@@ -95,20 +95,15 @@ class InvitationService
      */
     public function canInvite(Workspace $workspace): bool
     {
-        $config = config('billing.plans');
         $currentMembers = $workspace->users()->count();
         $pendingInvitations = $workspace->invitations()->count();
         $totalMembers = $currentMembers + $pendingInvitations;
 
-        // Get plan limits
-        if ($workspace->onBusinessPlan()) {
-            return true; // Unlimited
-        }
+        // Limits follow the workspace's effective plan (honours plan_override)
+        $limit = app(PlanLimitService::class)->getLimits($workspace->plan_key)['team_members'];
 
-        if ($workspace->onProPlan()) {
-            $limit = $config['pro']['limits']['team_members'];
-        } else {
-            $limit = $config['free']['limits']['team_members'];
+        if ($limit === -1) {
+            return true; // Unlimited
         }
 
         return $totalMembers < $limit;
@@ -119,19 +114,12 @@ class InvitationService
      */
     public function getMemberLimitMessage(Workspace $workspace): string
     {
-        $config = config('billing.plans');
         $currentMembers = $workspace->users()->count();
+        $limit = app(PlanLimitService::class)->getLimits($workspace->plan_key)['team_members'];
+        $plan = $workspace->plan_name;
 
-        if ($workspace->onBusinessPlan()) {
-            return "You have {$currentMembers} team members with unlimited seats on the Business plan.";
-        }
-
-        if ($workspace->onProPlan()) {
-            $limit = $config['pro']['limits']['team_members'];
-            $plan = 'Pro';
-        } else {
-            $limit = $config['free']['limits']['team_members'];
-            $plan = 'Free';
+        if ($limit === -1) {
+            return "You have {$currentMembers} team members with unlimited seats on the {$plan} plan.";
         }
 
         return "You have {$currentMembers} of {$limit} team members on the {$plan} plan.";

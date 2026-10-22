@@ -9,15 +9,43 @@ class PlanLimitService
 {
     /**
      * Get the limits for a given plan.
+     *
+     * Accepts either the plan key ("free", "pro") or the display name
+     * ("Grátis", "Pro") — the display name is what Workspace::plan_name
+     * returns, so both must resolve to the same limits.
      */
     public function getLimits(string $plan): array
     {
         $plans = config('billing.plans');
+        $key = $this->resolvePlanKey($plan);
 
-        return $plans[strtolower($plan)]['limits'] ?? [
+        return $plans[$key]['limits'] ?? $plans['free']['limits'] ?? [
             'workspaces' => 1,
-            'team_members' => 2, // Default to 2 to match Free plan
+            'team_members' => 1,
+            'api_keys' => 1,
+            'webhooks' => 0,
         ];
+    }
+
+    /**
+     * Resolve a plan key from a plan key or a display name.
+     */
+    protected function resolvePlanKey(string $plan): ?string
+    {
+        $plans = config('billing.plans');
+        $needle = mb_strtolower(trim($plan));
+
+        if (isset($plans[$needle])) {
+            return $needle;
+        }
+
+        foreach ($plans as $key => $config) {
+            if (mb_strtolower((string) ($config['name'] ?? '')) === $needle) {
+                return $key;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -30,6 +58,10 @@ class PlanLimitService
 
         // Get the highest plan limits among all workspaces the user owns
         $maxWorkspaces = $this->getMaxWorkspacesForUser($user);
+
+        if ($maxWorkspaces === -1) {
+            return true; // Unlimited
+        }
 
         return $ownedWorkspacesCount < $maxWorkspaces;
     }
@@ -47,7 +79,12 @@ class PlanLimitService
 
         $maxWorkspaces = 1;
         foreach ($workspaces as $workspace) {
-            $limits = $this->getLimits($workspace->plan_name);
+            $limits = $this->getLimits($workspace->plan_key);
+
+            if (($limits['workspaces'] ?? 1) === -1) {
+                return -1; // Unlimited
+            }
+
             $maxWorkspaces = max($maxWorkspaces, $limits['workspaces']);
         }
 
@@ -59,7 +96,7 @@ class PlanLimitService
      */
     public function canInviteTeamMember(Workspace $workspace): bool
     {
-        $limits = $this->getLimits($workspace->plan_name);
+        $limits = $this->getLimits($workspace->plan_key);
         $currentMembersCount = $workspace->users()->count();
         $pendingInvitationsCount = $workspace->invitations()->count();
 
@@ -71,7 +108,7 @@ class PlanLimitService
      */
     public function getRemainingTeamMemberSlots(Workspace $workspace): int
     {
-        $limits = $this->getLimits($workspace->plan_name);
+        $limits = $this->getLimits($workspace->plan_key);
         $currentMembersCount = $workspace->members()->count();
         $pendingInvitationsCount = $workspace->invitations()->count();
 
@@ -83,7 +120,7 @@ class PlanLimitService
      */
     public function canCreateApiKey(Workspace $workspace): bool
     {
-        $limits = $this->getLimits($workspace->plan_name);
+        $limits = $this->getLimits($workspace->plan_key);
         if ($limits['api_keys'] === -1) {
             return true;
         }
@@ -96,7 +133,7 @@ class PlanLimitService
      */
     public function canCreateWebhook(Workspace $workspace): bool
     {
-        $limits = $this->getLimits($workspace->plan_name);
+        $limits = $this->getLimits($workspace->plan_key);
         if ($limits['webhooks'] === -1) {
             return true;
         }
@@ -130,7 +167,7 @@ class PlanLimitService
      */
     public function getTeamMemberLimitMessage(Workspace $workspace): string
     {
-        $limits = $this->getLimits($workspace->plan_name);
+        $limits = $this->getLimits($workspace->plan_key);
         $currentMembersCount = $workspace->users()->count();
         $pendingInvitationsCount = $workspace->invitations()->count();
         $total = $currentMembersCount + $pendingInvitationsCount;
@@ -153,7 +190,7 @@ class PlanLimitService
      */
     public function getApiKeyLimitMessage(Workspace $workspace): string
     {
-        $limits = $this->getLimits($workspace->plan_name);
+        $limits = $this->getLimits($workspace->plan_key);
         $count = $workspace->apiKeys()->count();
 
         if ($limits['api_keys'] === -1 || $limits['api_keys'] >= 999) {
@@ -174,7 +211,7 @@ class PlanLimitService
      */
     public function getWebhookLimitMessage(Workspace $workspace): string
     {
-        $limits = $this->getLimits($workspace->plan_name);
+        $limits = $this->getLimits($workspace->plan_key);
         $count = $workspace->webhookEndpoints()->count();
 
         if ($limits['webhooks'] === -1 || $limits['webhooks'] >= 999) {

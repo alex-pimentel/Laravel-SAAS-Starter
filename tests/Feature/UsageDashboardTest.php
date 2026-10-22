@@ -27,7 +27,7 @@ it('renders the usage dashboard page', function () {
         ->component('usage/index')
         ->has('workspace')
         ->has('usage')
-        ->where('workspace.plan', 'Free')
+        ->where('workspace.plan', 'Grátis')
         ->has('usage.workspaces')
         ->has('usage.team_members')
         ->has('usage.api_keys')

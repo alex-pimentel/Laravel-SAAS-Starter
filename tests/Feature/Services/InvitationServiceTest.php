@@ -69,14 +69,11 @@ it('can accept an invitation', function () {
 });
 
 it('determines if a workspace can invite more members', function () {
-    $limit = config('billing.plans.free.limits.team_members'); // 2
-
-    // currently 1 (owner)
-    expect($this->service->canInvite($this->workspace))->toBeTrue();
-
-    // add 1 more = 2 (limit reached)
-    $user = User::factory()->create();
-    $this->workspace->addUser($user, 'member');
-
+    // Free plan: the owner fills the only seat — no invites allowed
     expect($this->service->canInvite($this->workspace))->toBeFalse();
+
+    // Pro plan (5 seats): the owner alone leaves seats available
+    $this->workspace->update(['plan_override' => 'pro']);
+
+    expect($this->service->canInvite($this->workspace->fresh()))->toBeTrue();
 });

@@ -81,7 +81,11 @@ test('userIsViewer helper works correctly', function () {
 });
 
 test('TeamController validates roles correctly', function () {
-    $workspace = Workspace::factory()->create(['owner_id' => $this->admin->id]);
+    $workspace = Workspace::factory()->create([
+        'owner_id' => $this->admin->id,
+        // Pro plan: 5 seats so invitations are allowed
+        'plan_override' => 'pro',
+    ]);
     $workspace->users()->attach($this->admin->id, ['role' => Workspace::ROLE_OWNER]);
 
     $this->admin->update(['current_workspace_id' => $workspace->id]);

@@ -15,7 +15,7 @@ it('can get limits for different plans', function () {
     $businessLimits = $this->service->getLimits('business');
 
     expect($freeLimits['workspaces'])->toBe(1);
-    expect($proLimits['workspaces'])->toBe(5);
+    expect($proLimits['workspaces'])->toBe(3);
     expect($businessLimits['team_members'])->toBe(-1);
 });
 
@@ -23,24 +23,21 @@ it('defaults to free limits for unknown plans', function () {
     $limits = $this->service->getLimits('unknown_plan');
 
     expect($limits['workspaces'])->toBe(1);
-    expect($limits['team_members'])->toBe(2);
+    expect($limits['team_members'])->toBe(1);
 });
 
 it('calculates the maximum number of workspaces based on the highest plan', function () {
     expect($this->service->getMaxWorkspacesForUser($this->user))->toBe(1);
 
-    $workspace = Workspace::factory()->create(['owner_id' => $this->user->id]);
-
-    // Mock the resolved plan property via reflection
-    $reflection = new ReflectionClass($workspace);
-    $property = $reflection->getProperty('resolvedPlan');
-    $property->setAccessible(true);
-    $property->setValue($workspace, ['name' => 'Pro', 'key' => 'pro']);
+    $workspace = Workspace::factory()->create([
+        'owner_id' => $this->user->id,
+        'plan_override' => 'pro',
+    ]);
 
     // Set the relation on user so it's not fetched from DB
     $this->user->setRelation('ownedWorkspaces', collect([$workspace]));
 
-    expect($this->service->getMaxWorkspacesForUser($this->user))->toBe(5);
+    expect($this->service->getMaxWorkspacesForUser($this->user))->toBe(3);
 });
 
 it('determines if a user can create another workspace', function () {
@@ -51,29 +48,35 @@ it('determines if a user can create another workspace', function () {
 
     expect($this->service->canCreateWorkspace($this->user))->toBeFalse();
 
-    // Upgrade to Pro by setting mock resolved plan and relation
-    $reflection = new ReflectionClass($workspace);
-    $property = $reflection->getProperty('resolvedPlan');
-    $property->setAccessible(true);
-    $property->setValue($workspace, ['name' => 'Pro', 'key' => 'pro']);
+    // Upgrade to Pro by overriding the plan and relation
+    $workspace->update(['plan_override' => 'pro']);
+
+    $this->user->setRelation('ownedWorkspaces', collect([$workspace->fresh()]));
+
+    expect($this->service->canCreateWorkspace($this->user))->toBeTrue();
+});
+
+it('treats the business plan as unlimited workspaces', function () {
+    $workspace = Workspace::factory()->create([
+        'owner_id' => $this->user->id,
+        'plan_override' => 'business',
+    ]);
 
     $this->user->setRelation('ownedWorkspaces', collect([$workspace]));
 
-    expect($this->service->canCreateWorkspace($this->user))->toBeTrue();
+    expect($this->service->getMaxWorkspacesForUser($this->user))->toBe(-1)
+        ->and($this->service->canCreateWorkspace($this->user))->toBeTrue();
 });
 
 it('determines if a workspace can invite more team members', function () {
     $workspace = Workspace::factory()->create(['owner_id' => $this->user->id]);
     $workspace->users()->attach($this->user->id, ['role' => 'owner']);
 
-    // Free plan: 2 members limit, current is 1.
-    expect($this->service->canInviteTeamMember($workspace))->toBeTrue();
-
-    // Add 1 more member = 2 (limit reached)
-    $member = User::factory()->create();
-    $workspace->users()->attach($member->id, ['role' => 'member']);
-
-    $workspace->unsetRelation('users');
-
+    // Free plan: the owner fills the single seat — no invites allowed
     expect($this->service->canInviteTeamMember($workspace))->toBeFalse();
+
+    // Pro plan: 5 seats, only the owner is a member
+    $workspace->update(['plan_override' => 'pro']);
+
+    expect($this->service->canInviteTeamMember($workspace->fresh()))->toBeTrue();
 });

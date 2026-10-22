@@ -10,7 +10,11 @@ use Illuminate\Support\Facades\Notification;
 function setupCsvImportWorkspace(): array
 {
     $owner = User::factory()->create();
-    $workspace = Workspace::factory()->create(['owner_id' => $owner->id]);
+    $workspace = Workspace::factory()->create([
+        'owner_id' => $owner->id,
+        // Pro plan: 5 seats so imports can create invitations
+        'plan_override' => 'pro',
+    ]);
     $workspace->users()->attach($owner->id, ['role' => 'owner']);
     $owner->switchWorkspace($workspace);
 
@@ -192,7 +196,7 @@ it('processes CSV import and sends invitations', function () {
         ->post('/team/import/process', ['csv_file' => $file])
         ->assertRedirect(route('team.index'));
 
-    // Verify invitation was created (free plan allows 2 total members, owner is 1)
+    // Verify invitation was created (Pro plan: 5 seats, owner is 1)
     expect(WorkspaceInvitation::where('workspace_id', $workspace->id)->count())->toBe(1);
     expect(WorkspaceInvitation::where('email', 'jane@example.com')->where('role', 'member')->exists())->toBeTrue();
 });

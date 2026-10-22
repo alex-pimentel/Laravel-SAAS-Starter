@@ -12,7 +12,10 @@ beforeEach(function () {
 
 it('sends invitation email when admin invites a user', function () {
     $owner = User::factory()->create();
-    $workspace = Workspace::factory()->create(['owner_id' => $owner->id]);
+    $workspace = Workspace::factory()->create([
+        'owner_id' => $owner->id,
+        'plan_override' => 'pro',
+    ]);
     $workspace->addUser($owner, 'owner');
     $owner->switchWorkspace($workspace);
 
