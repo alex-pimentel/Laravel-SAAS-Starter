@@ -104,7 +104,7 @@ export default function WorkspaceTwoFactorRequired({
                                     {ws.plan && (
                                         <Badge
                                             variant={
-                                                ws.plan === 'Free'
+                                                ws.plan_key === 'free'
                                                     ? 'outline'
                                                     : 'secondary'
                                             }

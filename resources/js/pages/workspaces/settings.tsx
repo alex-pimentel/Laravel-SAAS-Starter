@@ -368,7 +368,7 @@ export default function WorkspaceSettings({
                                         {workspace.plan}
                                     </p>
                                     <p className="text-sm text-muted-foreground">
-                                        {workspace.plan === 'Free'
+                                        {workspace.plan_key === 'free'
                                             ? t(
                                                   'billing.no_subscription_desc',
                                                   'Upgrade to a paid plan to unlock more features and team members.',

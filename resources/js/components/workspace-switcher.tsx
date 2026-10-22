@@ -103,7 +103,7 @@ export function WorkspaceSwitcher() {
                                 {workspace.plan && (
                                     <Badge
                                         variant={
-                                            workspace.plan === 'Free'
+                                            workspace.plan_key === 'free'
                                                 ? 'outline'
                                                 : 'secondary'
                                         }

@@ -37,6 +37,10 @@ return [
         ],
     ],
 
+    'editor' => [
+        'url' => env('EDITOR_URL', 'http://localhost:3000'),
+    ],
+
     'stripe' => [
         'model' => User::class,
         'key' => env('STRIPE_KEY'),

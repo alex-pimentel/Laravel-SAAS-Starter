@@ -434,5 +434,7 @@
     "landing.testimonials.stats.stars": "Templates",
     "billing.over_limit": "Over limit",
     "billing.remaining_percent": "{{percent}}% remaining",
-    "billing.plan_label": "{{plan}} plan"
+    "billing.plan_label": "{{plan}} plan",
+    "dashboard.open_editor": "Open the editor",
+    "dashboard.open_editor_desc": "Create, refine and render your videos"
 }

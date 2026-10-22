@@ -289,7 +289,7 @@ export default function BillingIndex({
                                                 className="rounded-full px-6 shadow-sm transition-transform active:scale-95"
                                             >
                                                 <Link href="/billing/plans">
-                                                    {workspace.plan === 'Free'
+                                                    {workspace.plan_key === 'free'
                                                         ? t(
                                                               'billing.upgrade',
                                                               'Upgrade Now',
@@ -468,7 +468,7 @@ export default function BillingIndex({
                             )}
 
                             {/* Trial Countdown or Help */}
-                            {!subscription && workspace.plan === 'Free' && (
+                            {!subscription && workspace.plan_key === 'free' && (
                                 <Card className="glass animate-fade-in-up border-dashed bg-muted/20 delay-300">
                                     <CardContent className="flex flex-col items-center pt-8 pb-8 text-center">
                                         <Sparkles className="mb-4 h-10 w-10 text-primary opacity-50" />

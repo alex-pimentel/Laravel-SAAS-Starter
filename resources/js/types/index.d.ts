@@ -37,6 +37,7 @@ export interface Workspace {
     personal_workspace: boolean;
     owner_id?: number;
     plan?: string;
+    plan_key?: string;
     role?: WorkspaceRole;
     is_current?: boolean;
     members_count?: number;
@@ -113,6 +114,7 @@ export interface SharedData {
     sidebarOpen: boolean;
     flash: Flash;
     locale?: string;
+    editorUrl?: string;
     features?: Record<string, boolean>;
     [key: string]: unknown;
 }

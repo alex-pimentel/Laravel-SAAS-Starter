@@ -61,6 +61,7 @@ class HandleInertiaRequests extends Middleware
                     'personal_workspace' => $workspace->personal_workspace,
                     'role' => $workspace->pivot->role,
                     'plan' => $workspace->plan_name,
+                    'plan_key' => $workspace->plan_key,
                     'is_current' => $currentWorkspace && $workspace->id === $currentWorkspace->id,
                 ]);
         }
@@ -91,6 +92,7 @@ class HandleInertiaRequests extends Middleware
                 'is_impersonating' => $request->session()->has('impersonated_by'),
             ],
             'locale' => $locale,
+            'editorUrl' => config('services.editor.url'),
             'currentWorkspace' => $currentWorkspace ? [
                 'id' => $currentWorkspace->id,
                 'name' => $currentWorkspace->name,
@@ -100,6 +102,7 @@ class HandleInertiaRequests extends Middleware
                 'personal_workspace' => $currentWorkspace->personal_workspace,
                 'owner_id' => $currentWorkspace->owner_id,
                 'plan' => $currentWorkspace->plan_name,
+                'plan_key' => $currentWorkspace->plan_key,
                 'role' => $currentWorkspace->getUserRole($user),
                 'feature_flags' => Feature::for($currentWorkspace)->all(),
             ] : null,

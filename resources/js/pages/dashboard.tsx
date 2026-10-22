@@ -20,6 +20,7 @@ import {
     Building2,
     CreditCard,
     Crown,
+    Play,
     Plus,
     Settings,
     Sparkles,
@@ -37,7 +38,7 @@ const getBreadcrumbs = (
 ];
 
 export default function Dashboard() {
-    const { currentWorkspace, auth } = usePage<SharedData>().props;
+    const { currentWorkspace, auth, editorUrl } = usePage<SharedData>().props;
     const { t } = useTranslations();
 
     // Default values if no workspace data passed from controller
@@ -45,6 +46,22 @@ export default function Dashboard() {
     const membersCount = currentWorkspace?.members_count ?? 1;
 
     const quickActions = [
+        ...(editorUrl
+            ? [
+                  {
+                      title: t('dashboard.open_editor', 'Abrir o editor'),
+                      description: t(
+                          'dashboard.open_editor_desc',
+                          'Create, refine and render your videos',
+                      ),
+                      icon: Play,
+                      href: editorUrl,
+                      color: 'text-primary',
+                      id: 'nav-editor',
+                      external: true,
+                  },
+              ]
+            : []),
         {
             title: t('dashboard.invite_team_member', 'Invite Team Member'),
             description: t(
@@ -157,17 +174,35 @@ export default function Dashboard() {
                             )}
                         </p>
                     </div>
-                    {workspace.plan === 'Free' && (
-                        <Button asChild>
-                            <Link href="/billing/plans">
-                                <Sparkles className="mr-2 h-4 w-4" />
-                                {t(
-                                    'dashboard.upgrade_to_pro',
-                                    'Upgrade to Pro',
-                                )}
-                            </Link>
-                        </Button>
-                    )}
+                    <div className="flex flex-wrap items-center gap-3">
+                        {editorUrl && (
+                            <Button asChild>
+                                <a
+                                    href={editorUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    id="nav-editor-hero"
+                                >
+                                    <Play className="mr-2 h-4 w-4" />
+                                    {t(
+                                        'dashboard.open_editor',
+                                        'Abrir o editor',
+                                    )}
+                                </a>
+                            </Button>
+                        )}
+                        {workspace.plan_key === 'free' && (
+                            <Button variant="outline" asChild>
+                                <Link href="/billing/plans">
+                                    <Sparkles className="mr-2 h-4 w-4" />
+                                    {t(
+                                        'dashboard.upgrade_to_pro',
+                                        'Upgrade to Pro',
+                                    )}
+                                </Link>
+                            </Button>
+                        )}
+                    </div>
                 </div>
 
                 {/* Stats Cards */}
@@ -324,35 +359,56 @@ export default function Dashboard() {
                     </CardHeader>
                     <CardContent>
                         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                            {quickActions.map((action) => (
-                                <Link
-                                    key={action.title}
-                                    href={action.href}
-                                    id={action.id}
-                                    className="group flex items-start gap-4 rounded-lg border p-4 transition-colors hover:bg-muted/50"
-                                >
-                                    <div
-                                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted ${action.color}`}
+                            {quickActions.map((action) => {
+                                const cardClassName =
+                                    'group flex items-start gap-4 rounded-lg border p-4 transition-colors hover:bg-muted/50';
+                                const cardContent = (
+                                    <>
+                                        <div
+                                            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted ${action.color}`}
+                                        >
+                                            <action.icon className="h-5 w-5" />
+                                        </div>
+                                        <div className="min-w-0 flex-1">
+                                            <p className="font-medium">
+                                                {action.title}
+                                            </p>
+                                            <p className="truncate text-sm text-muted-foreground">
+                                                {action.description}
+                                            </p>
+                                        </div>
+                                        <ArrowRight className="mt-1 h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
+                                    </>
+                                );
+
+                                return action.external ? (
+                                    <a
+                                        key={action.title}
+                                        href={action.href}
+                                        id={action.id}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={cardClassName}
                                     >
-                                        <action.icon className="h-5 w-5" />
-                                    </div>
-                                    <div className="min-w-0 flex-1">
-                                        <p className="font-medium">
-                                            {action.title}
-                                        </p>
-                                        <p className="truncate text-sm text-muted-foreground">
-                                            {action.description}
-                                        </p>
-                                    </div>
-                                    <ArrowRight className="mt-1 h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
-                                </Link>
-                            ))}
+                                        {cardContent}
+                                    </a>
+                                ) : (
+                                    <Link
+                                        key={action.title}
+                                        href={action.href}
+                                        id={action.id}
+                                        className={cardClassName}
+                                    >
+                                        {cardContent}
+                                    </Link>
+                                );
+                            })}
                         </div>
                     </CardContent>
                 </Card>
 
                 {/* Getting Started / Upgrade Prompt */}
-                {workspace.plan === 'Free' && (
+                {workspace.plan_key === 'free' && (
                     <Card className="border-primary/50 bg-gradient-to-r from-primary/5 to-primary/10">
                         <CardContent className="flex flex-col items-center justify-between gap-4 p-6 sm:flex-row">
                             <div className="flex items-center gap-4">

@@ -850,5 +850,7 @@
     "landing.features.items.flags.description": "Organize cenas, ajuste tempos e construa a sua história cena por cena.",
     "billing.over_limit": "Acima do limite",
     "billing.remaining_percent": "{{percent}}% restante",
-    "billing.plan_label": "Plano {{plan}}"
+    "billing.plan_label": "Plano {{plan}}",
+    "dashboard.open_editor": "Abrir o editor",
+    "dashboard.open_editor_desc": "Crie, ajuste e renderize os seus vídeos"
 }
