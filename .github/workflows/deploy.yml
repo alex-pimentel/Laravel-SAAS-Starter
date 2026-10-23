@@ -1,0 +1,32 @@
+name: Deploy
+
+# Deploy do SaaS (Laravel/Cashier) no Coolify — dispara no merge/push na main
+# ou manualmente (workflow_dispatch). O app já está provisionado no Coolify
+# (domínio, volumes, envs); aqui só disparamos o build/deploy.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-saas
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Coolify (SaaS)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Coolify deploy
+        run: |
+          curl -fsS -X POST \
+            "$COOLIFY_BASE_URL/api/v1/deploy?uuid=$APP_UUID&force=false" \
+            -H "Authorization: Bearer $COOLIFY_API_TOKEN"
+        env:
+          COOLIFY_BASE_URL: ${{ vars.COOLIFY_BASE_URL }}
+          APP_UUID: ${{ vars.COOLIFY_APP_UUID_SAAS }}
+          COOLIFY_API_TOKEN: ${{ secrets.COOLIFY_API_TOKEN }}
