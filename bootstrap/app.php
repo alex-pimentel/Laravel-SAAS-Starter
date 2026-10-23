@@ -32,6 +32,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Behind the Coolify/Traefik reverse proxy (HTTPS terminates there).
+        $middleware->trustProxies(at: '*');
+
         $middleware->replace(
             Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance::class,
             PreventRequestsDuringMaintenance::class
